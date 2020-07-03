@@ -60,7 +60,11 @@ export const getDisabledElementPriority = (state, dataElement) =>
 
 export const getToolsHeaderItems = state => {
   const toolbarGroup = getCurrentToolbarGroup(state);
-  return state.viewer.headers[toolbarGroup];
+  const toolbarGroupItems = state.viewer.headers[toolbarGroup];
+  if (!toolbarGroupItems) {
+    console.warn(`Unexpeted value for toolbarGroupItems for dataElement: ${toolbarGroup}`, toolbarGroupItems);
+  }
+  return state.viewer.headers[toolbarGroupItems];
 };
 
 export const getToolButtonObjects = state => {
