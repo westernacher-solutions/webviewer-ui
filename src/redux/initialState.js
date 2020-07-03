@@ -24,6 +24,14 @@ export default {
       searchPanel: 293,
       notesPanel: 293,
     },
+    toolbarGroupsOrder: [
+      { dataElement: 'toolbarGroup-View', title: 'option.toolbarGroup.toolbarGroup-View' },
+      { dataElement: 'toolbarGroup-Annotate', title: 'option.toolbarGroup.toolbarGroup-Annotate' },
+      { dataElement: 'toolbarGroup-Shapes', title: 'option.toolbarGroup.toolbarGroup-Shapes' },
+      { dataElement: 'toolbarGroup-Insert', title: 'option.toolbarGroup.toolbarGroup-Insert' },
+      { dataElement: 'toolbarGroup-Measure', title: 'option.toolbarGroup.toolbarGroup-Measure' },
+      { dataElement: 'toolbarGroup-Edit', title: 'option.toolbarGroup.toolbarGroup-Edit' },
+    ],
     headers: {
       default: [
         { type: 'toggleElementButton', img: 'icon-header-sidebar-line', element: 'leftPanel', dataElement: 'leftPanelButton', title: 'component.leftPanel' },

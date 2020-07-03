@@ -17,6 +17,27 @@ export default initialState => (state = initialState, action) => {
         ...state,
         toolbarGroup: payload.toolbarGroup,
       };
+    case 'ADD_TOOLBAR_GROUP':
+    {
+      const { dataElement, title, position = 0 } = payload;
+      const headers = { ...state.headers };
+      headers[dataElement] = [];
+      const toolbarGroupsOrder = [...state.toolbarGroupsOrder];
+      toolbarGroupsOrder.splice(
+        position,
+        0,
+        {
+          dataElement,
+          title,
+        }
+      );
+
+      return {
+        ...state,
+        headers,
+        toolbarGroupsOrder
+      };
+    }
     case 'SET_SELECTED_STAMP_INDEX':
       return {
         ...state,

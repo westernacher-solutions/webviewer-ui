@@ -47,6 +47,13 @@ export const setDefaultStamps = t => async dispatch => {
   });
 };
 
+export const addToolbarGroup = (dataElement, title, position) => dispatch => {
+  dispatch({
+    type: 'ADD_TOOLBAR_GROUP',
+    payload: { dataElement, title, position },
+  });
+};
+
 export const setReadOnlyRibbons = () => (dispatch, getState) => {
   dispatch(setToolbarGroup('toolbarGroup-View'));
   const state = getState();

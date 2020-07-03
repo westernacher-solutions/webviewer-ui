@@ -12,6 +12,6 @@ WebViewer(...)
     instance.setToolbarGroup('toolbarGroup-Shapes');
  */
 
-export default store => group => {
-  store.dispatch(actions.setToolbarGroup(group));
+export default store => groupDataElement => {
+  store.dispatch(actions.setToolbarGroup(groupDataElement));
 };

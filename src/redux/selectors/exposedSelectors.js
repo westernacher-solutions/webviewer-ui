@@ -64,7 +64,7 @@ export const getToolsHeaderItems = state => {
   if (!toolbarGroupItems) {
     console.warn(`Unexpeted value for toolbarGroupItems for dataElement: ${toolbarGroup}`, toolbarGroupItems);
   }
-  return state.viewer.headers[toolbarGroupItems];
+  return toolbarGroupItems;
 };
 
 export const getToolButtonObjects = state => {

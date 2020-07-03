@@ -112,6 +112,7 @@ import setSortStrategy from './setSortStrategy';
 import setSwipeOrientation from './setSwipeOrientation';
 import setTheme from './setTheme';
 import setToolbarGroup from './setToolbarGroup';
+import addToolbarGroup from './addToolbarGroup';
 import setToolMode from './setToolMode';
 import setZoomLevel from './setZoomLevel';
 import setZoomList from './setZoomList';
@@ -198,6 +199,7 @@ export default store => {
     setSwipeOrientation,
     setTheme: setTheme(store),
     setToolbarGroup: setToolbarGroup(store),
+    addToolbarGroup: addToolbarGroup(store),
     dangerouslySetNoteTransformFunction: setNoteTransformFunction(store),
     setToolMode: setToolMode(store),
     setZoomLevel,
