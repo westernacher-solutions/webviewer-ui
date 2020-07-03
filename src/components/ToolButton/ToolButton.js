@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import Button from 'components/Button';
+import SignatureToolButton from 'components/SignatureToolButton';
 
 import core from 'core';
 import toolStylesExist from 'helpers/toolStylesExist';
@@ -76,6 +77,10 @@ const ToolButton = ({ toolName, ...restProps }) => {
   if (showColor === 'always' || (showColor === 'active' && isActive)) {
     const toolStyles = getToolStyles(toolName);
     color = toolStyles?.[iconColor]?.toHexString?.();
+  }
+
+  if (toolName === 'AnnotationCreateSignature') {
+    return (<SignatureToolButton/>);
   }
 
   return (
