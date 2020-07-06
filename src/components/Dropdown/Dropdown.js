@@ -58,17 +58,18 @@ function Dropdown({ items, currentSelectionKey, translationPrefix, onClickItem }
 
   const dropdownItems = useMemo(
     () =>
-      items.map(key => (
+      items.map(({ dataElement, title }) => (
         <button
-          key={key}
-          className={classNames('Dropdown__item', { active: key === currentSelectionKey })}
-          onClick={e => onClickDropdownItem(e, key)}
+          key={dataElement}
+          data-element={dataElement}
+          className={classNames('Dropdown__item', { active: dataElement === currentSelectionKey })}
+          onClick={e => onClickDropdownItem(e, { dataElement, title })}
           tabIndex={isOpen ? undefined : -1} // Just to be safe.
         >
-          {t(`${translationPrefix}.${key}`)}
+          {t(title)}
         </button>
       )),
-    [currentSelectionKey, isOpen, items, onClickDropdownItem, t, translationPrefix],
+    [currentSelectionKey, isOpen, items, onClickDropdownItem, t],
   );
 
   const optionIsSelected = items.some(key => key === currentSelectionKey);

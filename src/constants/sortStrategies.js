@@ -52,6 +52,17 @@ const sortStrategies = {
 
 export const getSortStrategies = () => sortStrategies;
 
+export const sortStrategyData = [
+  {
+    key:'sortStrategy-position',
+    title: 'option.notesOrder.position',
+  },
+  {
+    key: 'sortStrategy-time',
+    title: 'option.notesOrder.time',
+  }
+];
+
 export const addSortStrategy = newStrategy => {
   const { name, getSortedNotes, shouldRenderSeparator, getSeparatorContent } = newStrategy;
 

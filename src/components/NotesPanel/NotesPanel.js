@@ -14,7 +14,7 @@ import ListSeparator from 'components/ListSeparator';
 import ResizeBar from 'components/ResizeBar';
 
 import core from 'core';
-import { getSortStrategies } from 'constants/sortStrategies';
+import { getSortStrategies, sortStrategyData } from 'constants/sortStrategies';
 import actions from 'actions';
 import selectors from 'selectors';
 import useMedia from 'hooks/useMedia';
@@ -25,7 +25,7 @@ import './NotesPanel.scss';
 
 const NotesPanel = () => {
   const [
-    sortStrategy,
+    currentSortStrategy,
     isOpen,
     isDisabled,
     pageLabels,
@@ -210,7 +210,7 @@ const NotesPanel = () => {
   ) => {
     let listSeparator = null;
     const { shouldRenderSeparator, getSeparatorContent } = getSortStrategies()[
-      sortStrategy
+      currentSortStrategy.dataElement
     ];
     const prevNote = index === 0 ? null : notes[index - 1];
     const currNote = notes[index];
@@ -251,7 +251,7 @@ const NotesPanel = () => {
   };
 
   const notesToRender = getSortStrategies()
-    [sortStrategy].getSortedNotes(notes)
+    [currentSortStrategy.dataElement].getSortedNotes(notes)
     .filter(filterNote);
 
   const NoResults = (
@@ -361,9 +361,9 @@ const NotesPanel = () => {
                   <div className="sort-container">
                     <div className="label">{`Sort by:`}</div>
                     <Dropdown
-                      items={Object.keys(getSortStrategies())}
+                      items={sortStrategyData}
                       translationPrefix="option.notesOrder"
-                      currentSelectionKey={sortStrategy}
+                      currentSelectionItem={currentSortStrategy}
                       onClickItem={sortStrategy => {
                         dispatch(actions.setSortStrategy(sortStrategy));
                       }}

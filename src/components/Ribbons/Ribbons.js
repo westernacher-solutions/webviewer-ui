@@ -11,7 +11,7 @@ import Measure from 'react-measure';
 
 import "./Ribbons.scss";
 
-const Ribbons = ({ toolbarGroups, currentToolbarGroup, setToolbarGroup }) => {
+const Ribbons = ({ currentToolbarGroup, setToolbarGroup, toolbarGroupDipslayData }) => {
   const [t] = useTranslation();
   const [ribbonsWidth, setRibbonsWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -32,7 +32,8 @@ const Ribbons = ({ toolbarGroups, currentToolbarGroup, setToolbarGroup }) => {
     }
   }, [ribbonsWidth, containerWidth, ribbonsRef, containerRef]);
 
-  if (toolbarGroups.length <= 1) {
+  // No sense in showing ribbons if there is only 1
+  if (toolbarGroupDipslayData.length <= 1) {
     return null;
   }
 
@@ -65,10 +66,10 @@ const Ribbons = ({ toolbarGroups, currentToolbarGroup, setToolbarGroup }) => {
                   "is-hidden": !hasEnoughSpace,
                 })}
               >
-                {toolbarGroups.map(key =>
+                {toolbarGroupDipslayData.map(({ key }) =>
                   <button
                     key={key}
-                    data-element={`${key}`}
+                    data-element={key}
                     className={classNames({
                       "ribbon-group": true,
                       "active": key === currentToolbarGroup,
@@ -89,7 +90,7 @@ const Ribbons = ({ toolbarGroups, currentToolbarGroup, setToolbarGroup }) => {
             })}
           >
             <Dropdown
-              items={toolbarGroups}
+              items={toolbarGroupDipslayData}
               translationPrefix="option.toolbarGroup"
               currentSelectionKey={currentToolbarGroup}
               onClickItem={toolbarGroup => {
@@ -104,7 +105,8 @@ const Ribbons = ({ toolbarGroups, currentToolbarGroup, setToolbarGroup }) => {
 };
 
 const mapStateToProps = state => ({
-  toolbarGroups: selectors.getEnabledToolbarGroups(state),
+  toolbarGroupDipslayData: selectors.getToolbarGroupsDisplayData(state),
+  // toolbarGroups: selectors.getEnabledToolbarGroups(state),
   currentToolbarGroup: selectors.getCurrentToolbarGroup(state),
 });
 

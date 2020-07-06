@@ -45,9 +45,11 @@ export const allButtonsInGroupDisabled = (state, toolGroup) => {
 };
 
 const getToolbarGroupDataElements = state => {
-  return Object.keys(state.viewer.headers)
-    .filter(key => key.includes('toolbarGroup-'));
+  const { toolbarGroupsOrder } = state.viewer;
+  return toolbarGroupsOrder.map(({ dataElement }) => dataElement);
 };
+
+export const getToolbarGroupsDisplayData = state => state.viewer.toolbarGroupsOrder;
 
 export const getEnabledToolbarGroups = state => {
   const toolbarGroupDataElements = getToolbarGroupDataElements(state);
