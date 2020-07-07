@@ -61,7 +61,7 @@ class ColorPalette extends React.PureComponent {
 
   renderTransparencyCell = bg => {
     const { property } = this.props;
-    const shouldRenderDummyCell = property === 'TextColor' || property === 'StrokeColor';
+    const shouldRenderDummyCell = property === 'TextColor' || property === 'StrokeColor' || !bg;
 
     if (shouldRenderDummyCell) {
       return <div className="dummy-cell" />;
@@ -133,7 +133,7 @@ class ColorPalette extends React.PureComponent {
       <div className="ColorPalette" data-element={dataElement}>
         {palette.map(bg => (
           <React.Fragment key={bg}>
-            {bg === 'transparency' ? this.renderTransparencyCell(bg) : this.renderColorCell(bg)}
+            {!bg || bg === 'transparency' ? this.renderTransparencyCell(bg) : this.renderColorCell(bg)}
           </React.Fragment>
         ))}
       </div>
