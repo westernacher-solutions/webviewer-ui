@@ -46,6 +46,7 @@ class DocumentContainer extends React.PureComponent {
     super(props);
     this.document = React.createRef();
     this.container = React.createRef();
+    this.wrapperEl = null;
     this.wheelToNavigatePages = _.throttle(this.wheelToNavigatePages.bind(this), 300, { trailing: false });
     this.wheelToZoom = _.throttle(this.wheelToZoom.bind(this), 30, { trailing: false });
   }
@@ -57,7 +58,7 @@ class DocumentContainer extends React.PureComponent {
   }
 
   componentDidMount() {
-    touchEventManager.initialize(this.document.current, this.container.current);
+    touchEventManager.initialize(this.document.current, this.container.current, this.wrapperEl);
     core.setScrollViewElement(this.container.current);
     core.setViewerElement(this.document.current);
 
@@ -215,7 +216,10 @@ class DocumentContainer extends React.PureComponent {
         {({ measureRef }) => (
           <div
             className="measurement-container"
-            ref={measureRef}
+            ref={el => {
+              measureRef(el);
+              this.wrapperEl = el;
+            }}
           >
             <div
               className={className}

@@ -5,9 +5,10 @@ import { getDataWithKey, mapToolNameToKey } from 'constants/map';
 import { getMinZoomLevel, getMaxZoomLevel } from 'constants/zoomFactors';
 
 const TouchEventManager = {
-  initialize(document, container) {
+  initialize(document, container, wrapper) {
     this.document = document;
     this.container = container;
+    this.wrapper = wrapper;
     this.allowSwipe = true;
     this.allowHorizontalSwipe = true;
     this.allowVerticalSwipe = false;
@@ -73,12 +74,12 @@ const TouchEventManager = {
         const t2 = e.touches[1];
         const clientX = (t1.clientX + t2.clientX) / 2;
         const clientY = (t1.clientY + t2.clientY) / 2;
-        const boundsDocument = this.document.getBoundingClientRect();
-        const docX = clientX - boundsDocument.left + this.container.scrollLeft;
-        const docY = clientY - boundsDocument.top + this.container.scrollTop;
+        const docX = clientX - this.document.offsetLeft + this.container.scrollLeft;
+        const docY = clientY - this.wrapper.offsetTop + this.container.scrollTop;
+
         this.touch = {
           previousPinchScale: 0,
-          marginLeft: boundsDocument.left,
+          marginLeft: this.document.offsetLeft,
           marginTop: parseFloat(window.getComputedStyle(this.document).marginTop),
           clientX,
           clientY,
@@ -348,10 +349,8 @@ const TouchEventManager = {
     return Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
   },
   getPointAfterScale() {
-    const boundsContainer = this.container.getBoundingClientRect();
-    const boundsDocument = this.document.getBoundingClientRect();
-    const x = (this.touch.clientX + this.container.scrollLeft - boundsDocument.left) * this.touch.scale - this.touch.clientX + boundsContainer.left;
-    const y = (this.touch.clientY + this.container.scrollTop - boundsDocument.top) * this.touch.scale - this.touch.clientY + boundsContainer.top;
+    const x = (this.touch.clientX + this.container.scrollLeft - this.document.offsetLeft) * this.touch.scale - this.touch.clientX + this.wrapper.offsetLeft;
+    const y = (this.touch.clientY + this.container.scrollTop - this.wrapper.offsetTop) * this.touch.scale - this.touch.clientY + this.wrapper.offsetTop;
 
     return { x, y };
   },
