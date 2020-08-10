@@ -170,7 +170,7 @@ class SignatureOverlay extends React.PureComponent {
     // and we don't want the original annotation to be mutated as well
     // since it's been added to the canvas
     annotations = annotations.map(core.getAnnotationCopy);
-    this.previewsPromise = await Promise.all(
+    this.previewsPromise = Promise.all(
       annotations.map(annotation => this.signatureTool.getPreview(annotation))
     );
 
