@@ -116,7 +116,7 @@ const NoteContent = ({ annotation, isEditing, setIsEditing, noteIndex }) => {
       }
 
       return (
-        <p dangerouslySetInnerHTML={{ __html: text }} />
+        <span className="contents" dangerouslySetInnerHTML={{ __html: text }} />
       );
     },
     [searchInput],

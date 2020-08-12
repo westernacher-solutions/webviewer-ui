@@ -100,7 +100,6 @@
   .container {
     margin-top: 7px;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .edit-content {
@@ -177,32 +176,13 @@
     }
   }
 
-  p {
-    width: 140px;
-    border: 1px solid #000000;
-    word-break: break-all;
-  }
-
-  p.a {
-    word-break: normal;
-  }
-
-  p.b {
-    word-break: keep-all;
-  }
-
-  p.c {
-    word-break: break-all;
-  }
-
   .contents {
-    white-space: pre;
+    white-space: pre-wrap;
     color: var(--text-color);
     margin-right: 5px;
     padding: 0;
+    word-break: normal;
     word-wrap: break-word;
-    word-break: break-all;
-    display: inline-block;
     user-select: text;
 
     .highlight {
