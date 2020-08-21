@@ -20,6 +20,7 @@ import TextPopup from 'components/TextPopup';
 import ContextMenuPopup from 'components/ContextMenuPopup';
 import RichTextPopup from 'components/RichTextPopup';
 import SignatureModal from 'components/SignatureModal';
+import ThreeDModal from 'components/ThreeDModal';
 import PrintModal from 'components/PrintModal';
 import LoadingModal from 'components/LoadingModal';
 import ErrorModal from 'components/ErrorModal';
@@ -112,6 +113,7 @@ const App = ({ removeEventHandlers }) => {
         <ContextMenuPopup />
         <RichTextPopup />
         <SignatureModal />
+        <ThreeDModal />
         <PrintModal />
         <LoadingModal />
         <ErrorModal />

@@ -158,6 +158,13 @@ class ToolsOverlay extends React.PureComponent {
     //       }}
     //     />
     //   );
+    } else if (activeToolGroup === 'threeDTools') {
+      Component = (
+        <div className="no-presets" onClick={() => this.props.openElement('ThreeDModal')}>
+          {/* todo: translate this  */}
+          Add 3D file
+        </div>
+      );
     } else if (noPresets) {
       Component = (
         <div className="no-presets">
@@ -225,6 +232,7 @@ const mapStateToProps = state => ({
   activeHeaderItems: selectors.getToolsHeaderItems(state),
   activeToolGroup: selectors.getActiveToolGroup(state),
   activeToolName: selectors.getActiveToolName(state),
+
 });
 
 const mapDispatchToProps = {
