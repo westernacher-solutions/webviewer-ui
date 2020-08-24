@@ -55,12 +55,14 @@ const ThreeDModal = () => {
       const scrollTop = scrollElement.scrollTop || 0;
 
       const threeD = new Annotations.ThreeD();
-      threeD.__customData['link'] = url;
+      threeD.CustomData['link'] = url;
+      threeD['link'] = url;
       // TODO: Frontend passed in a wrong left and top, need to fix
       // need to pass these value dynamicly
-      threeD.__customData['left'] = e.layerX + 'px';
-      threeD.__customData['top'] = e.layerY + 'px';
-      threeD.__customData['link'] = url;
+      threeD.CustomData['left'] = e.layerX + 'px';
+      threeD.CustomData['top'] = e.layerY + 'px';
+      threeD['top'] = e.layerY + 'px';
+      threeD['left'] = e.layerY + 'px';
       const pageNumberToDraw = 1;
       core.drawAnnotations(pageNumberToDraw, null, true);
       core.drawAnnotations(threeD.PageNumber, null, true);
