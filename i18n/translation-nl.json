@@ -9,6 +9,7 @@
     "undo": "Ongedaan maken",
     "redo": "Klaar",
     "comment": "Opmerking",
+    "reply": "Antwoorden",
     "copy": "Kopieer",
     "delete": "Verwijder",
     "group": "Groep",
@@ -28,7 +29,6 @@
     "print": "Printen",
     "name": "Naam",
     "ok": "OK",
-    "reply": "Antwoorden",
     "rotate": "Roteren",
     "rotateClockwise": "Met de klok mee",
     "rotateCounterClockwise": "Tegen de klok in",
@@ -78,6 +78,7 @@
     "rectangle": "Rechthoek",
     "redact": "Redigeren",
     "signature": "Handtekening",
+    "3D": "3D",
     "squiggly": "Squiggly",
     "stamp": "Stempel",
     "stickyNote": "Commentaar",
@@ -369,6 +370,7 @@
     "url": "URL",
     "page": "Bladzijde",
     "enterurl": "Voer de URL in waarnaar u wilt linken",
+    "enter3DUrl": "Voer de URL voor het 3D-object in glTF-indeling in",
     "enterpage": "Selecteer het paginanummer waarnaar u wilt linken"
   },
   "datePicker": {

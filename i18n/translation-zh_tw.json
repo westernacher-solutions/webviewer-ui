@@ -9,6 +9,7 @@
     "undo": "撤消",
     "redo": "準備",
     "comment": "評論",
+    "reply": "回覆",
     "copy": "複製",
     "delete": "刪除",
     "group": "組",
@@ -28,7 +29,6 @@
     "print": "列印",
     "name": "名稱",
     "ok": "OK",
-    "reply": "回覆",
     "rotate": "旋轉",
     "rotateClockwise": "順時針",
     "rotateCounterClockwise": "逆時針",
@@ -78,6 +78,7 @@
     "rectangle": "矩形",
     "redact": "修訂",
     "signature": "簽名",
+    "3D": "3D",
     "squiggly": "曲線",
     "stamp": "圖章",
     "stickyNote": "評論",
@@ -369,6 +370,7 @@
     "url": "網址",
     "page": "頁",
     "enterurl": "輸入您想要鏈接的URL",
+    "enter3DUrl": "輸入glTF格式的3D對象的URL",
     "enterpage": "選擇您要鏈接的頁碼"
   },
   "datePicker": {

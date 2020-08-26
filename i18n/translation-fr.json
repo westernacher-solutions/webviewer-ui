@@ -9,6 +9,7 @@
     "undo": "annuler",
     "redo": "Prêt",
     "comment": "Commenter",
+    "reply": "Répondre",
     "copy": "Copier",
     "delete": "Supprimer",
     "group": "Groupe",
@@ -28,7 +29,6 @@
     "print": "Imprimer",
     "name": "Nom",
     "ok": "OK",
-    "reply": "Répondre",
     "rotate": "Tourner",
     "rotateClockwise": "Tourner horaire",
     "rotateCounterClockwise": "Tourner antihoraire",
@@ -78,6 +78,7 @@
     "rectangle": "Rectangle",
     "redact": "Biffure",
     "signature": "Signature",
+    "3D": "3D",
     "squiggly": "Ligne ondulée",
     "stamp": "Timbre",
     "stickyNote": "Note collante",
@@ -369,6 +370,7 @@
     "url": "URL",
     "page": "Page",
     "enterurl": "Entrez l'URL à laquelle vous souhaitez créer un lien",
+    "enter3DUrl": "Entrez l'URL de l'objet 3D au format glTF",
     "enterpage": "Sélectionnez le numéro de page auquel vous souhaitez lier"
   },
   "datePicker": {

@@ -19,8 +19,9 @@ const ThreeDModal = () => {
     selectors.getActiveToolName(state),
   ]);
 
-  const [url, setURL] = useState('https://modelviewer.dev/shared-assets/models/Astronaut.glb');
-  // const [threeDURL, setThreeDURL] = useState('');
+  const dispatch = useDispatch();
+  const [t] = useTranslation();
+  const [url, setURL] = useState('');
   const urlInput = React.createRef();
 
   // Hack to close modal if hotkey to open other tool is used.
@@ -29,9 +30,6 @@ const ThreeDModal = () => {
       dispatch(actions.closeElement('ThreeDModal'));
     }
   }, [dispatch, activeToolName]);
-
-  const dispatch = useDispatch();
-  const [t] = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -42,45 +40,31 @@ const ThreeDModal = () => {
 
   const closeModal = () => {
     dispatch(actions.closeElement('ThreeDModal'));
-    // setURL('');
+    setURL('');
     core.setToolMode(defaultTool);
   };
 
-  const addURLLink = e => {
+  const drawThreeDHandler = e => {
     e.preventDefault();
 
     const draw3DAnnotation = e => {
-      const scrollElement = window.docViewer.getScrollViewElement();
-      const scrollLeft = scrollElement.scrollLeft || 0;
-      const scrollTop = scrollElement.scrollTop || 0;
+      // question: define this in core threeD.js class?
+      const defaultW = 300;
+      const defaultH = 300;
 
-      const threeD = new Annotations.ThreeD();
-      threeD["CustomData"]["link"] = url;
+      const threeD = new Annotations.ThreeDAnnotation();
       threeD['link'] = url;
-      // TODO: Frontend passed in a wrong left and top, need to fix
-      // need to pass these value dynamicly
-      threeD["CustomData"]["left"] = e.layerX + 'px';
-      threeD["CustomData"]["top"] = e.layerY + 'px';
-      threeD['top'] = e.layerY + 'px';
-      threeD['left'] = e.layerY + 'px';
-      const pageNumberToDraw = 1;
-      core.drawAnnotations(pageNumberToDraw, null, true);
-      core.drawAnnotations(threeD.PageNumber, null, true);
+      threeD.X = e.layerX;
+      threeD.Y = e.layerY;
+      threeD.Width = defaultW;
+      threeD.Height = defaultH;
+
       core.addAnnotations([threeD]);
-
-      window.console.log('test', e);
-      window.console.log('threeD', threeD);
-
+      core.drawAnnotations(threeD.PageNumber, null, true);
       core.removeEventListener('click', draw3DAnnotation);
     };
-
     core.addEventListener('click', draw3DAnnotation);
-
     closeModal();
-    // TODO: this is not working
-    // return () => {
-    //   core.removeEventListener('click', draw3DAnnotation);
-    // };
   };
 
   const modalClass = classNames({
@@ -95,8 +79,8 @@ const ThreeDModal = () => {
       <div className={modalClass} data-element="ThreeDModal" onMouseDown={closeModal}>
         <div className="container" onMouseDown={e => e.stopPropagation()}>
           <form>
-            {/* todo: translate this  */}
-            <div>Enter the URL for 3D object in glTF format</div>
+            <div></div>
+            <div>{t('link.enter3DUrl')}</div>
             <div className="linkInput">
               <input
                 className="urlInput"
@@ -106,22 +90,9 @@ const ThreeDModal = () => {
                 onChange={e => setURL(e.target.value)}
               />
 
-              <Button dataElement="linkSubmitButton" label={t('action.link')} onClick={addURLLink} />
+              <Button dataElement="linkSubmitButton" label={t('action.link')} onClick={drawThreeDHandler} />
             </div>
           </form>
-          {/* {threeDURL && (
-            <model-viewer
-              src={threeDURL}
-              loading="eager"
-              alt="A 3D model of an astronaut"
-              auto-rotate
-              camera-orbit="-80deg 75deg 105%"
-              camera-controls
-              ar-modes="webxr scene-viewer quick-look fallback"
-              ar-scale="auto"
-              ar
-            ></model-viewer>
-          )} */}
         </div>
       </div>
     </Swipeable>

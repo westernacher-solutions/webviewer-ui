@@ -9,6 +9,7 @@
     "undo": "元に戻す",
     "redo": "準備ができて",
     "comment": "コメント",
+    "reply": "返信",
     "copy": "コピー",
     "delete": "削除",
     "group": "グループ",
@@ -28,7 +29,6 @@
     "print": "印刷",
     "name": "名前",
     "ok": "OK",
-    "reply": "返信",
     "rotate": "回転",
     "rotateClockwise": "時計回り",
     "rotateCounterClockwise": "反時計回り",
@@ -78,6 +78,7 @@
     "rectangle": "矩形",
     "redact": "改訂",
     "signature": "署名",
+    "3D": "3D",
     "squiggly": "波線",
     "stamp": "スタンプ",
     "stickyNote": "コメント",
@@ -369,6 +370,7 @@
     "url": "URL",
     "page": "ページ",
     "enterurl": "リンクするURLを入力してください",
+    "enter3DUrl": "3DオブジェクトのURLをglTF形式で入力します",
     "enterpage": "リンクするページ番号を選択します"
   },
   "datePicker": {

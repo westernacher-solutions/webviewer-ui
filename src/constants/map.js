@@ -412,17 +412,7 @@ const map = {
     availablePalettes: ['StrokeColor'],
     toolNames: ['AnnotationCreateFileAttachment'],
     annotationCheck: annotation => annotation instanceof window.Annotations.FileAttachmentAnnotation,
-  },
-  // threeD: {
-  //   icon: 'icon-tool-threeD',
-  //   iconColor: null,
-  //   currentPalette: null,
-  //   availablePalettes: [],
-  //   toolNames: [
-  //     'AnnotationCreateThreeD',
-  //   ],
-  //   annotationCheck: annotation => null && annotation instanceof window.Annotations.ThreeDAnnotation,
-  // },
+  }
 };
 
 export const mapToolNameToKey = toolName =>

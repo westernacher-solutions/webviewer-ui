@@ -9,6 +9,7 @@
     "undo": "撤消",
     "redo": "准备",
     "comment": "注释",
+    "reply": "回复",
     "copy": "复制",
     "delete": "删除",
     "group": "组",
@@ -28,7 +29,6 @@
     "print": "打印",
     "name": "名称",
     "ok": "好的",
-    "reply": "回复",
     "rotate": "旋转",
     "rotateClockwise": "顺时针",
     "rotateCounterClockwise": "逆时针",
@@ -78,6 +78,7 @@
     "rectangle": "矩形",
     "redact": "新版本",
     "signature": "签名",
+    "3D": "3D",
     "squiggly": "曲线",
     "stamp": "盖章",
     "stickyNote": "注释",
@@ -369,6 +370,7 @@
     "url": "网址",
     "page": "页",
     "enterurl": "输入您想要链接的URL",
+    "enter3DUrl": "输入glTF格式的3D对象的URL",
     "enterpage": "选择您要链接的页码"
   },
   "datePicker": {

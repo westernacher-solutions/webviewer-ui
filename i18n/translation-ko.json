@@ -9,6 +9,7 @@
     "undo": "실행 취소",
     "redo": "준비된",
     "comment": "댓글",
+    "reply": "회신",
     "copy": "복사",
     "delete": "삭제",
     "group": "그룹",
@@ -28,7 +29,6 @@
     "print": "인쇄",
     "name": "이름",
     "ok": "확인",
-    "reply": "회신",
     "rotate": "회전",
     "rotateClockwise": "시계 방향으로",
     "rotateCounterClockwise": "시계 반대 방향으로",
@@ -78,6 +78,7 @@
     "rectangle": "직사각형",
     "redact": "개정",
     "signature": "서명",
+    "3D": "3D",
     "squiggly": "곡선",
     "stamp": "스탬프",
     "stickyNote": "코멘트",
@@ -369,6 +370,7 @@
     "url": "URL",
     "page": "페이지",
     "enterurl": "연결할 URL을 입력하십시오",
+    "enter3DUrl": "3D 개체의 URL을 glTF 형식으로 입력하세요.",
     "enterpage": "연결하려는 페이지 번호를 선택하십시오"
   },
   "datePicker": {

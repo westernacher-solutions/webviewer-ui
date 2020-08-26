@@ -9,6 +9,7 @@
     "undo": "Disfare",
     "redo": "Pronto",
     "comment": "Commento",
+    "reply": "rispondere",
     "copy": "copia",
     "delete": "Elimina",
     "group": "Gruppo",
@@ -28,7 +29,6 @@
     "print": "Stampa",
     "name": "Nome",
     "ok": "ok",
-    "reply": "rispondere",
     "rotate": "Ruotare",
     "rotateClockwise": "Senso orario",
     "rotateCounterClockwise": "Antiorario",
@@ -78,6 +78,7 @@
     "rectangle": "Rettangolo",
     "redact": "Oscura",
     "signature": "Firma",
+    "3D": "3D",
     "squiggly": "Squiggly",
     "stamp": "Francobollo",
     "stickyNote": "Commento",
@@ -369,6 +370,7 @@
     "url": "URL",
     "page": "Pagina",
     "enterurl": "Inserisci l'URL che desideri collegare",
+    "enter3DUrl": "Immettere l'URL per l'oggetto 3D in formato glTF",
     "enterpage": "Seleziona il numero di pagina che desideri collegare"
   },
   "datePicker": {

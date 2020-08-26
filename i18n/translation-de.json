@@ -9,6 +9,7 @@
     "undo": "Rückgängig machen",
     "redo": "Bereit",
     "comment": "Kommentar",
+    "reply": "Antwort",
     "copy": "Kopieren",
     "delete": "Löschen",
     "group": "Gruppe",
@@ -28,7 +29,6 @@
     "print": "Drucken",
     "name": "Name",
     "ok": "OK",
-    "reply": "Antwort",
     "rotate": "Drehen",
     "rotateClockwise": "Im Uhrzeigersinn",
     "rotateCounterClockwise": "Gegen den Uhrzeigersinn",
@@ -78,6 +78,7 @@
     "rectangle": "Rechteck",
     "redact": "Schwärzen",
     "signature": "Unterschrift",
+    "3D": "3D",
     "squiggly": "Gewellte Linie",
     "stamp": "Stempel",
     "stickyNote": "Kommentar",
@@ -369,6 +370,7 @@
     "url": "URL",
     "page": "Seite",
     "enterurl": "Geben Sie die URL ein, zu der Sie einen Link erstellen möchten",
+    "enter3DUrl": "Geben Sie die URL für das 3D-Objekt im glTF-Format ein",
     "enterpage": "Wählen Sie die Seitennummer aus, zu der Sie einen Link erstellen möchten"
   },
   "datePicker": {

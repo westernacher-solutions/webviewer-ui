@@ -370,6 +370,7 @@
     "url": "URL",
     "page": "Page",
     "enterurl": "Enter URL you would like to link to",
+    "enter3DUrl": "Enter the URL for 3D object in glTF format",
     "enterpage": "Select the page number you would like to link to"
   },
   "datePicker": {
