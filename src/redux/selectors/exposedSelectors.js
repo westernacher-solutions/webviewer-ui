@@ -151,6 +151,8 @@ export const getAnnotationContentOverlayHandler = state => state.viewer.annotati
 
 export const getEnableMouseWheelZoom = state => state.viewer.enableMouseWheelZoom;
 
+export const getSliderTriggerEventsOnChange = state => state.viewer.sliderTriggerEventsOnChange;
+
 // warning message
 export const getWarningMessage = state => state.viewer.warning?.message || '';
 

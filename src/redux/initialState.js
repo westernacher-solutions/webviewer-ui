@@ -214,6 +214,7 @@ export default {
     savedSignatures: [],
     selectedSignatureIndex: 0,
     annotationContentOverlayHandler: null,
+    sliderTriggerEventsOnChange: true,
   },
   search: {
     listeners: [],

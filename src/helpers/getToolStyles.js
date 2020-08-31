@@ -24,5 +24,5 @@ export default toolName => {
     tool.defaults.Opacity = null;
   }
 
-  return tool?.defaults;
+  return tool?.defaults ?? {};
 };

@@ -254,3 +254,7 @@ export const setAnnotationContentOverlayHandler = annotationContentOverlayHandle
   type: 'SET_ANNOTATION_CONTENT_OVERLAY_HANDLER',
   payload: { annotationContentOverlayHandler }
 });
+export const setSliderTriggerEventsOnChange = triggerOnChange => ({
+  type: 'SET_SLIDER_TRIGGER_EVENTS_ON_CHANGE',
+  payload: !!triggerOnChange
+});

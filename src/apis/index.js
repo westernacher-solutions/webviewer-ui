@@ -138,6 +138,7 @@ import unselectThumbnailPages from './unselectThumbnailPages';
 import setSearchResults from './setSearchResults';
 import setActiveResult from './setActiveResult';
 import setAnnotationContentOverlayHandler from './setAnnotationContentOverlayHandler';
+import setSliderTriggerEventsOnChange from './setSliderTriggerEventsOnChange';
 
 export default store => {
   window.readerControl = {
@@ -221,6 +222,7 @@ export default store => {
     selectThumbnailPages: selectThumbnailPages(store),
     unselectThumbnailPages: unselectThumbnailPages(store),
     setAnnotationContentOverlayHandler: setAnnotationContentOverlayHandler(store),
+    setSliderTriggerEventsOnChange: setSliderTriggerEventsOnChange(store),
 
     // undocumented and deprecated, to be removed in 7.0
     closeElement: closeElement(store),

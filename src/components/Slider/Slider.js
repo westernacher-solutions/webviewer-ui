@@ -9,7 +9,6 @@ import './Slider.scss';
 
 class Slider extends React.PureComponent {
   static propTypes = {
-    property: PropTypes.string.isRequired,
     dataElement: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([
       PropTypes.number,
@@ -20,9 +19,10 @@ class Slider extends React.PureComponent {
       PropTypes.number,
       PropTypes.string,
     ]),
-    getCirclePosition: PropTypes.func.isRequired,
-    convertRelativeCirclePositionToValue: PropTypes.func.isRequired,
-    onStyleChange: PropTypes.func.isRequired,
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onAfterChange: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   }
 
@@ -64,8 +64,18 @@ class Slider extends React.PureComponent {
     this.onMove(e.nativeEvent);
   }
 
-  onMouseUp = () => {
+  onMouseUp = e => {
+    if (!this.isMouseDown) {
+      return;
+    }
+
     this.isMouseDown = false;
+
+    const { min, max, onAfterChange } = this.props;
+    const relativeCirclePosition = this.getRelativeCirclePosition(e);
+    const value = relativeCirclePosition * (max - min);
+
+    onAfterChange(value);
   }
 
   onTouchStart = e => {
@@ -80,11 +90,11 @@ class Slider extends React.PureComponent {
 
     e.preventDefault();
 
-    const { property, onStyleChange, convertRelativeCirclePositionToValue } = this.props;
+    const { min, max, onChange } = this.props;
     const relativeCirclePosition = this.getRelativeCirclePosition(e);
-    const value = convertRelativeCirclePositionToValue(relativeCirclePosition);
+    const value = relativeCirclePosition * (max - min);
 
-    onStyleChange(property, value);
+    onChange(value);
   }
 
   getRelativeCirclePosition = e => {
@@ -109,9 +119,16 @@ class Slider extends React.PureComponent {
     return (circlePosition - lineStart) / this.lineLength;
   }
 
+  getCircleCenter = () => {
+    const { min, max, value } = this.props;
+    const lineStart = circleRadius;
+
+    return lineStart + value / (max - min) * this.lineLength;
+  }
+
   renderSlider = () => {
-    const { dataElement, displayProperty, displayValue, getCirclePosition, t } = this.props;
-    const circleCenter = getCirclePosition(this.lineLength);
+    const { dataElement, displayProperty, displayValue, t } = this.props;
+    const circleCenter = this.getCircleCenter();
 
     return (
       <React.Fragment>

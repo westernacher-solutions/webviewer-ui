@@ -8,6 +8,7 @@ import getToolStylePopupPositionBasedOn from 'helpers/getToolStylePopupPositionB
 import getClassName from 'helpers/getClassName';
 import setToolStyles from 'helpers/setToolStyles';
 import { isMobile } from 'helpers/device';
+import getToolStyles from 'helpers/getToolStyles';
 import { mapToolNameToKey } from 'constants/map';
 import actions from 'actions';
 import selectors from 'selectors';
@@ -17,7 +18,6 @@ import './ToolStylePopup.scss';
 class ToolStylePopup extends React.PureComponent {
   static propTypes = {
     activeToolName: PropTypes.string,
-    activeToolStyle: PropTypes.object,
     isDisabled: PropTypes.bool,
     isOpen: PropTypes.bool,
     toolButtonObjects: PropTypes.object.isRequired,
@@ -90,8 +90,9 @@ class ToolStylePopup extends React.PureComponent {
     this.props.closeElement('toolStylePopup');
   };
 
-  handleStyleChange = (property, value) => {
-    setToolStyles(this.props.activeToolName, property, value);
+  handleStyleChange = (property, value, triggerEvents = true) => {
+    setToolStyles(this.props.activeToolName, property, value, triggerEvents);
+    this.forceUpdate();    
   };
 
   positionToolStylePopup = () => {
@@ -115,7 +116,7 @@ class ToolStylePopup extends React.PureComponent {
 
   render() {
     const { left, top } = this.state;
-    const { isDisabled, activeToolName, activeToolStyle } = this.props;
+    const { isDisabled, activeToolName } = this.props;
     const isFreeText = activeToolName === 'AnnotationCreateFreeText';
     const className = getClassName(`Popup ToolStylePopup`, this.props);
     const colorMapKey = mapToolNameToKey(activeToolName);
@@ -135,7 +136,7 @@ class ToolStylePopup extends React.PureComponent {
         <StylePopup
           key={activeToolName}
           colorMapKey={colorMapKey}
-          style={activeToolStyle}
+          style={{ ...getToolStyles(activeToolName) }}
           isFreeText={isFreeText}
           onStyleChange={this.handleStyleChange}
         />
@@ -146,7 +147,6 @@ class ToolStylePopup extends React.PureComponent {
 
 const mapStateToProps = state => ({
   activeToolName: selectors.getActiveToolName(state),
-  activeToolStyle: selectors.getActiveToolStyles(state),
   isDisabled: selectors.isElementDisabled(state, 'toolStylePopup'),
   isOpen: selectors.isElementOpen(state, 'toolStylePopup'),
   toolButtonObjects: selectors.getToolButtonObjects(state),

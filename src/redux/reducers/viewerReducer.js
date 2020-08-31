@@ -238,6 +238,8 @@ export default initialState => (state = initialState, action) => {
       return { ...state, annotationContentOverlayHandler: payload.annotationContentOverlayHandler };
     case 'SET_MOUSE_WHEEL_ZOOM':
       return { ...state, enableMouseWheelZoom: payload.enableMouseWheelZoom };
+    case 'SET_SLIDER_TRIGGER_EVENTS_ON_CHANGE':
+      return { ...state, sliderTriggerEventsOnChange: payload };
     default:
       return state;
   }

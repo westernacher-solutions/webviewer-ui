@@ -8,7 +8,7 @@ export const MEASUREMENT_TOOL_NAMES = [
   Tools.ToolNames['ELLIPSE_MEASUREMENT'],
 ];
 
-export default (toolName, property, value) => {
+export default (toolName, property, value, triggerEvents) => {
   let tools = [];
 
   if (MEASUREMENT_TOOL_NAMES.includes(toolName)) {
@@ -22,8 +22,12 @@ export default (toolName, property, value) => {
   }
 
   tools.forEach(tool => {
-    tool.setStyles({
-      [property]: value,
-    });
+    if (triggerEvents) {
+      tool.setStyles({
+        [property]: value,
+      });  
+    } else if (tool.defaults) {
+      tool.defaults[property] = value;
+    }
   });
 };

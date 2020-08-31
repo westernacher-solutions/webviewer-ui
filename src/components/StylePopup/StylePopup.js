@@ -7,8 +7,6 @@ import ColorPalette from 'components/ColorPalette';
 import Slider from 'components/Slider';
 import MeasurementOption from 'components/MeasurementOption';
 import StyleOption from 'components/StyleOption';
-
-import { circleRadius } from 'constants/slider';
 import DataElements from 'constants/dataElement';
 import selectors from 'selectors';
 
@@ -88,64 +86,76 @@ function Sliders({ style, onStyleChange, isFreeText }) {
   const isOpacitySliderDisabled = useSelector(state => selectors.isElementDisabled(state, DataElements.OPACITY_SLIDER));
   const isStrokeThicknessSliderDisabled = useSelector(state => selectors.isElementDisabled(state, DataElements.STROKE_THICKNESS_SLIDER));
   const isFontSizeSliderDisabled = useSelector(state => selectors.isElementDisabled(state, DataElements.FONT_SIZE_SLIDER));
+  const triggerEventsOnChange = useSelector(state => selectors.getSliderTriggerEventsOnChange(state));
 
   const hideAllSlider = isOpacitySliderDisabled && isStrokeThicknessSliderDisabled && isFontSizeSliderDisabled;
   const { Opacity, StrokeThickness, FontSize } = style;
-  const lineStart = circleRadius;
+
+  const handleChange = property => value => {
+    onStyleChange(
+      property,
+      property === 'FontSize' ? getFontSizeStr(value) : value,
+      triggerEventsOnChange
+    );
+  };
+
+  const handleAfterChange = property => value => {
+    onStyleChange(
+      property,
+      property === 'FontSize' ? getFontSizeStr(value) : value,
+      // always trigger the event after users have finished dragging the slider
+      // to make sure that slider values are correct in another viewer during collaboration
+      true
+    );
+  };
+
+  // WebViewer expects font size to be a string that ends with pt, not a number
+  const getFontSizeStr = fontSize => `${fontSize}pt`;
+
+  if (hideAllSlider) {
+    return null;
+  }
 
   return (
-    !hideAllSlider && (
-      <div className="sliders-container" onMouseDown={e => e.preventDefault()}>
-        <div className="sliders">
-          {!isOpacitySliderDisabled && (Opacity || Opacity === 0) && (
-            <Slider
-              dataElement={DataElements.OPACITY_SLIDER}
-              key="Opacity"
-              value={Opacity}
-              displayValue={`${Math.round(Opacity * 100)}%`}
-              property="Opacity"
-              displayProperty="opacity"
-              onStyleChange={onStyleChange}
-              getCirclePosition={lineLength => Opacity * lineLength + lineStart}
-              convertRelativeCirclePositionToValue={circlePosition => circlePosition}
-            />
-          )}
-          {!isStrokeThicknessSliderDisabled && (StrokeThickness || StrokeThickness === 0) && (
-            <Slider
-              dataElement={DataElements.STROKE_THICKNESS_SLIDER}
-              key="StrokeThickness"
-              value={StrokeThickness}
-              displayValue={`${Math.round(StrokeThickness)}pt`}
-              property="StrokeThickness"
-              displayProperty="thickness"
-              onStyleChange={onStyleChange}
-              // FreeText Annotations can have the border thickness go down to 0. For others the minimum is 1.
-              getCirclePosition={lineLength =>
-                (isFreeText
-                  ? (StrokeThickness / 20) * lineLength + lineStart
-                  : ((StrokeThickness - 1) / 19) * lineLength + lineStart)}
-              convertRelativeCirclePositionToValue={circlePosition =>
-                (isFreeText ? circlePosition * 20 : circlePosition * 19 + 1)}
-            />
-          )}
-          {!isFontSizeSliderDisabled && (FontSize || FontSize === 0) && (
-            <Slider
-              dataElement={DataElements.FONT_SIZE_SLIDER}
-              key="FontSize"
-              value={FontSize}
-              displayValue={`${Math.round(parseInt(FontSize, 10))}pt`}
-              property="FontSize"
-              displayProperty="text"
-              onStyleChange={onStyleChange}
-              // FreeText Annotations can have the border thickness go down to 0. For others the minimum is 1.
-              getCirclePosition={lineLength =>
-                ((parseInt(FontSize, 10) - 5) / 40) * lineLength + lineStart}
-              convertRelativeCirclePositionToValue={circlePosition =>
-                `${circlePosition * 40 + 5}pt`}
-            />
-          )}
-        </div>
+    <div className="sliders-container" onMouseDown={e => e.preventDefault()}>
+      <div className="sliders">
+        {!isOpacitySliderDisabled && (Opacity || Opacity === 0) && (
+          <Slider
+            dataElement={DataElements.OPACITY_SLIDER}
+            value={Opacity}
+            displayValue={`${Math.round(Opacity * 100)}%`}
+            displayProperty="opacity"
+            onChange={handleChange('Opacity')}
+            onAfterChange={handleAfterChange('Opacity')}
+            min={0}
+            max={1}
+          />
+        )}
+        {!isStrokeThicknessSliderDisabled && (StrokeThickness || StrokeThickness === 0) && (
+          <Slider
+            dataElement={DataElements.STROKE_THICKNESS_SLIDER}
+            value={StrokeThickness}
+            displayValue={`${Math.round(StrokeThickness)}pt`}
+            displayProperty="thickness"
+            onChange={handleChange('StrokeThickness')}
+            onAfterChange={handleAfterChange('StrokeThickness')}
+            min={isFreeText ? 0 : 1}
+            max={20}
+          />
+        )}
+        {!isFontSizeSliderDisabled && (FontSize || FontSize === 0) && (
+          <Slider
+            dataElement={DataElements.FONT_SIZE_SLIDER}
+            value={FontSize}
+            displayValue={`${Math.round(parseInt(FontSize, 10))}pt`}
+            displayProperty="text"
+            onChange={handleChange('FontSize')}
+            onAfterChange={handleAfterChange('FontSize')}
+            min={5}
+            max={45}
+          />
+        )}
       </div>
-    )
+    </div>
   );
 }
