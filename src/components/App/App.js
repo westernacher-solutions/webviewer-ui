@@ -46,6 +46,8 @@ import './App.scss';
 
 console.log('test repo sync legacy');
 
+console.log('worked!');
+
 const propTypes = {
   removeEventHandlers: PropTypes.func.isRequired,
 };
