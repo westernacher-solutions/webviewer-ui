@@ -44,6 +44,8 @@ import fireEvent from 'helpers/fireEvent';
 
 import './App.scss';
 
+console.log('test repo sync legacy');
+
 const propTypes = {
   removeEventHandlers: PropTypes.func.isRequired,
 };
