@@ -28,6 +28,7 @@ import PasswordModal from 'components/PasswordModal';
 import ProgressModal from 'components/ProgressModal';
 import CalibrationModal from 'components/CalibrationModal';
 import LinkModal from 'components/LinkModal';
+import EditTextModal from 'components/EditTextModal';
 import FilterAnnotModal from '../FilterAnnotMondal';
 import FilePickerHandler from 'components/FilePickerHandler';
 import CopyTextHandler from 'components/CopyTextHandler';
@@ -44,6 +45,7 @@ import actions from 'actions';
 
 import './App.scss';
 
+console.log('test repo sync');
 
 // TODO: Use constants
 const tabletBreakpoint = window.matchMedia('(min-width: 641px) and (max-width: 900px)');
@@ -86,7 +88,7 @@ const App = ({ removeEventHandlers }) => {
 
         <Header />
         <ToolsHeader />
-        <div className="content">
+        <div className="content" onScroll={() => dispatch(actions.closeElement('annotationNoteConnectorLine'))}>
           <LeftPanel />
           <DocumentContainer />
           <RightPanel
@@ -121,6 +123,7 @@ const App = ({ removeEventHandlers }) => {
         <CalibrationModal />
         <CreateStampModal />
         <LinkModal />
+        <EditTextModal />
         <FilterAnnotModal />
         <CustomModal />
       </div>
