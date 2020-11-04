@@ -9,11 +9,11 @@ import ActionButton from 'components/ActionButton';
 import core from 'core';
 import getOverlayPositionBasedOn from 'helpers/getOverlayPositionBasedOn';
 import print from 'helpers/print';
-import getClassName from 'helpers/getClassName';
 import openFilePicker from 'helpers/openFilePicker';
 import toggleFullscreen from 'helpers/toggleFullscreen';
 import downloadPdf from 'helpers/downloadPdf';
 import { isIOS } from 'helpers/device';
+import getClassName from 'helpers/getClassName';
 import { workerTypes } from 'constants/types';
 import actions from 'actions';
 import selectors from 'selectors';
@@ -47,7 +47,7 @@ class MenuOverlay extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.isOpen && this.props.isOpen) {
-      this.props.closeElements(['groupOverlay', 'viewControlsOverlay', 'searchOverlay', 'toolStylePopup', 'signatureOverlay', 'zoomOverlay', 'redactionOverlay']);
+      this.props.closeElements(['groupOverlay', 'viewControlsOverlay', 'toolStylePopup', 'signatureOverlay', 'zoomOverlay', 'redactionOverlay']);
       this.setState(getOverlayPositionBasedOn('menuButton', this.overlay));
     }
   }
@@ -93,9 +93,7 @@ class MenuOverlay extends React.PureComponent {
     return (
       <div className={className} data-element="menuOverlay" style={{ left, right }} ref={this.overlay}>
         <ActionButton dataElement="filePickerButton" label={t('action.openFile')} onClick={openFilePicker} />
-        {!isIOS &&
-          <ActionButton dataElement="fullScreenButton" label={isFullScreen ? t('action.exitFullscreen') : t('action.enterFullscreen')} onClick={toggleFullscreen} />
-        }
+        <ActionButton dataElement="fullScreenButton" label={isFullScreen ? t('action.exitFullscreen') : t('action.enterFullscreen')} onClick={toggleFullscreen} />
         {documentType !== workerTypes.XOD &&
           <ActionButton dataElement="downloadButton" label={t('action.download')} onClick={this.downloadDocument} />
         }

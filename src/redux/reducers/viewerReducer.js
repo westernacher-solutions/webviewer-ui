@@ -96,6 +96,8 @@ export default initialState => (state = initialState, action) => {
       return { ...state, sortStrategy: payload.sortStrategy };
     case 'SET_NOTE_DATE_FORMAT':
       return { ...state, noteDateFormat: payload.noteDateFormat };
+    case 'SET_PRINTED_NOTE_DATE_FORMAT':
+      return { ...state, printedNoteDateFormat: payload.noteDateFormat };
     case 'SET_FULL_SCREEN':
       return { ...state, isFullScreen: payload.isFullScreen };
     case 'SET_HEADER_ITEMS':
@@ -118,7 +120,7 @@ export default initialState => (state = initialState, action) => {
             title: payload.tooltip,
             group: payload.buttonGroup,
             img: payload.buttonImage,
-            showColor: 'active',
+            showColor: payload.showColor || 'active',
           },
         },
       };
@@ -154,6 +156,8 @@ export default initialState => (state = initialState, action) => {
       return { ...state, isThumbnailReordering: payload.useThumbnailReordering };
     case 'SET_THUMBNAIL_MULTISELECT':
       return { ...state, isThumbnailMultiselect: payload.useThumbnailMultiselect };
+    case 'SET_MULTI_VIEWER_MERGING':
+      return { ...state, isMultipleViewerMerging: payload.isMultipleViewerMerging };
     case 'SET_ALLOW_PAGE_NAVIGATION':
       return { ...state, allowPageNavigation: payload.allowPageNavigation };
     case 'SET_TOOL_BUTTON_OBJECTS':
@@ -171,11 +175,7 @@ export default initialState => (state = initialState, action) => {
       return { ...state, pageLabels: [...payload.pageLabels] };
     case 'SET_SELECTED_THUMBNAIL_PAGE_INDEXES':
       return { ...state, selectedThumbnailPageIndexes: payload.selectedThumbnailPageIndexes };
-    case 'REMOVE_PAGE_INDEX':
-      return { ...state,
-        selectedThumbnailPageIndexes: state.selectedThumbnailPageIndexes.filter(p => p !== payload.pageIndexDeleted).map(p => (p < payload.pageIndexDeleted ? p : p - 1)),
-      };
-    case 'SET_COLOR_PALETTE': {
+    case 'SET_ACTIVE_PALETTE': {
       const { colorMapKey, colorPalette } = payload;
       return {
         ...state,
@@ -222,6 +222,8 @@ export default initialState => (state = initialState, action) => {
       return { ...state, leftPanelWidth: payload.width };
     case 'SET_MAX_SIGNATURES_COUNT':
       return { ...state, maxSignaturesCount: payload.maxSignaturesCount };
+    case 'SET_USER_DATA':
+      return { ...state, userData: payload.userData };
     case 'SET_CUSTOM_MEASUREMENT_OVERLAY':
       return { ...state, customMeasurementOverlay: payload.customMeasurementOverlay };
     case 'SET_SIGNATURE_FONTS':
@@ -231,7 +233,11 @@ export default initialState => (state = initialState, action) => {
     case 'SET_CUSTOM_ELEMENT_OVERRIDES':
       return { ...state, customElementOverrides: { ...state.customElementOverrides, [payload.dataElement]: payload.overrides } };
     case 'SET_NOTE_TRANSFORM_FUNCTION':
-      return { ...state, noteTransformFunction: payload.noteTransformFunction }
+      return { ...state, noteTransformFunction: payload.noteTransformFunction };
+    case 'SET_ANNOTATION_CONTENT_OVERLAY_HANDLER':
+      return { ...state, annotationContentOverlayHandler: payload.annotationContentOverlayHandler };
+    case 'SET_MOUSE_WHEEL_ZOOM':
+      return { ...state, enableMouseWheelZoom: payload.enableMouseWheelZoom };
     default:
       return state;
   }

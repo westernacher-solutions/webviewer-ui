@@ -38,7 +38,8 @@
     "draw": "Desenhar",
     "type": "Tipo",
     "upload": "Envio",
-    "link": "Ligação"
+    "link": "Ligação",
+    "fileAttachmentDownload": "Baixar arquivo anexado"
   },
   "annotation": {
     "areaMeasurement": "Medição de área",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "Medição de distância",
     "ellipse": "Elipse",
     "eraser": "Apagador",
+    "fileattachment": "Anexo de arquivo",
     "freehand": "Mão livre",
     "freehand2": "Mão livre",
     "freetext": "Texto livre",
@@ -69,8 +71,7 @@
     "strikeout": "Riscar",
     "underline": "Sublinhar",
     "custom": "Personalizado",
-    "rubberStamp": "Carimbo de borracha",
-    "fileattachment": "Anexo de arquivo"
+    "rubberStamp": "Carimbo de borracha"
   },
   "rubberStamp": {
     "Approved": "Aprovado",
@@ -178,6 +179,7 @@
       "all": "Todas",
       "current": "Atual",
       "pages": "Páginas",
+      "includeAnnotations": "Incluir anotações",
       "includeComments": "Incluir comentários",
       "addWatermarkSettings": "Adicionar configurações de marca d'água"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "Estilo",
-      "regular": "Regular",
+      "solid": "Sólido",
       "cloudy": "Nublado"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "Excluir",
       "rotateClockwise": "Sentido horário",
-      "rotateCounterClockwise": "Sentido anti-horário"
+      "rotateCounterClockwise": "Sentido anti-horário",
+      "extractZeroPageError": "Nenhuma página foi selecionada para extrair"
+    },
+    "richText": {
+      "bold": "Negrito",
+      "italic": "itálico",
+      "underline": "Sublinhar",
+      "strikeout": "Tachado"
     }
   },
   "warning": {
@@ -286,12 +295,18 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl L)",
+      "strikeout": "(Ctrl K)"
+    }
   },
   "tool": {
     "pan": "Pan",
     "select": "Selecionar",
-    "Marquee": "Zoom Marquee",
+    "Marquee": "Zoom na seleção",
     "Link": "URL ou página do link"
   },
   "link": {
@@ -299,5 +314,41 @@
     "page": "Página",
     "enterurl": "Digite o URL para o qual você deseja vincular",
     "enterpage": "Selecione o número da página que você deseja vincular"
+  },
+  "datePicker": {
+    "previousMonth": "Mês anterior",
+    "nextMonth": "Próximo mês",
+    "months": {
+      "0": "Janeiro",
+      "1": "Fevereiro",
+      "2": "Março",
+      "3": "Abril",
+      "4": "Maio",
+      "5": "Junho",
+      "6": "Julho",
+      "7": "Agosto",
+      "8": "Setembro",
+      "9": "Outubro",
+      "10": "Novembro",
+      "11": "Dezembro"
+    },
+    "weekdays": {
+      "0": "Domingo",
+      "1": "Segunda-feira",
+      "2": "Terça-feira",
+      "3": "Quarta-feira",
+      "4": "Quinta-feira",
+      "5": "Sexta-feira",
+      "6": "Sábado"
+    },
+    "weekdaysShort": {
+      "0": "Dom",
+      "1": "Seg",
+      "2": "Ter",
+      "3": "Qua",
+      "4": "Qui",
+      "5": "Sex",
+      "6": "Sáb"
+    }
   }
 }

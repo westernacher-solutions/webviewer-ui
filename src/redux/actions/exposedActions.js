@@ -155,6 +155,10 @@ export const setNoteDateFormat = noteDateFormat => ({
   type: 'SET_NOTE_DATE_FORMAT',
   payload: { noteDateFormat },
 });
+export const setPrintedNoteDateFormat = noteDateFormat => ({
+  type: 'SET_PRINTED_NOTE_DATE_FORMAT',
+  payload: { noteDateFormat },
+});
 export const setCustomPanel = newPanel => ({
   type: 'SET_CUSTOM_PANEL',
   payload: { newPanel },
@@ -172,10 +176,6 @@ export const setPageLabels = pageLabels => dispatch => {
 export const setSelectedPageThumbnails = (selectedThumbnailPageIndexes = []) => ({
   type: 'SET_SELECTED_THUMBNAIL_PAGE_INDEXES',
   payload: { selectedThumbnailPageIndexes },
-});
-export const deletePageIndex = pageIndexDeleted => ({
-  type: 'REMOVE_PAGE_INDEX',
-  payload: { pageIndexDeleted },
 });
 export const setSwipeOrientation = swipeOrientation => ({
   type: 'SET_SWIPE_ORIENTATION',
@@ -222,6 +222,10 @@ export const setMaxSignaturesCount = maxSignaturesCount => ({
   type: 'SET_MAX_SIGNATURES_COUNT',
   payload: { maxSignaturesCount },
 });
+export const setUserData = userData => ({
+  type: 'SET_USER_DATA',
+  payload: { userData },
+});
 export const setCustomMeasurementOverlay = customMeasurementOverlay => ({
   type: 'SET_CUSTOM_MEASUREMENT_OVERLAY',
   payload: { customMeasurementOverlay },
@@ -233,4 +237,20 @@ export const setSelectedTab = (id, dataElement) => ({
 export const setCustomElementOverrides = (dataElement, overrides) => ({
   type: 'SET_CUSTOM_ELEMENT_OVERRIDES',
   payload: { dataElement, overrides },
+});
+export const setSearchResults = searchResults => ({
+  type: 'SET_SEARCH_RESULTS',
+  payload: searchResults,
+});
+export const setActiveResult = (activeResult, index) => ({
+  type: 'SET_ACTIVE_RESULT',
+  payload: { activeResult },
+});
+export const setActiveResultIndex = index => ({
+  type: 'SET_ACTIVE_RESULT_INDEX',
+  payload: { index },
+});
+export const setAnnotationContentOverlayHandler = annotationContentOverlayHandler => ({
+  type: 'SET_ANNOTATION_CONTENT_OVERLAY_HANDLER',
+  payload: { annotationContentOverlayHandler }
 });

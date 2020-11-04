@@ -19,6 +19,7 @@ import Icon from 'components/Icon';
 import core from 'core';
 import { mapAnnotationToKey, getDataWithKey } from 'constants/map';
 import escapeHtml from 'helpers/escapeHtml';
+import getLatestActivityDate from 'helpers/getLatestActivityDate';
 import useDidUpdate from 'hooks/useDidUpdate';
 import actions from 'actions';
 import selectors from 'selectors';
@@ -38,7 +39,9 @@ const NoteContent = ({ annotation }) => {
     NoteContext,
   );
   const [isEditing, setIsEditing] = useState(false);
-  const [textAreaValue, setTextAreaValue] = useState(annotation.getContents());
+  const [textAreaValue, setTextAreaValue] = useState(
+    annotation.getCustomData('trn-mention')?.contents || annotation.getContents()
+  );
   const [t] = useTranslation();
   const dispatch = useDispatch();
 

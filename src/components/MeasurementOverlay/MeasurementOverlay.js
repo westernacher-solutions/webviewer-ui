@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -6,12 +8,7 @@ import { connect } from 'react-redux';
 import Icon from 'components/Icon';
 
 import core from 'core';
-import {
-  mapAnnotationToKey,
-  mapToolNameToKey,
-  getDataWithKey,
-} from 'constants/map';
-import getClassName from 'helpers/getClassName';
+import { mapAnnotationToKey, mapToolNameToKey, getDataWithKey } from 'constants/map';
 import parseMeasurementContents from 'helpers/parseMeasurementContents';
 import actions from 'actions';
 import selectors from 'selectors';
@@ -19,6 +16,7 @@ import selectors from 'selectors';
 import './MeasurementOverlay.scss';
 import CustomMeasurementOverlay from './CustomMeasurementOverlay';
 import EllipseMeasurementOverlay from './EllipseMeasurementOverlay';
+import LineMeasurementInput from './LineMeasurementInput';
 
 class MeasurementOverlay extends React.PureComponent {
   static propTypes = {
@@ -35,7 +33,14 @@ class MeasurementOverlay extends React.PureComponent {
     super(props);
     this.state = {
       annotation: null,
+      transparentBackground: false,
+      position: {
+        x: 0,
+        y: 0,
+      },
     };
+    this.overlayRef = React.createRef();
+    this.isCreatingAnnotation = false;
   }
 
   componentDidMount() {
@@ -55,7 +60,11 @@ class MeasurementOverlay extends React.PureComponent {
     }
 
     if (prevProps.isOpen && !this.props.isOpen) {
-      this.setState({ annotation: null });
+      this.setState({
+        annotation: null,
+        transparentBackground: false,
+      });
+      this.isCreatingAnnotation = false;
     }
   }
 
@@ -65,19 +74,51 @@ class MeasurementOverlay extends React.PureComponent {
     core.removeEventListener('annotationChanged', this.onAnnotationChanged);
   }
 
-  onMouseMove = () => {
+  onMouseMove = e => {
     const { activeToolName, openElement } = this.props;
     const tool = core.getTool(activeToolName);
 
     if (this.state.annotation) {
+      const insideRect = this.isMouseInsideRect(e, this.overlayRef.current);
+      let useTransparentBackground;
+
+      if (this.isCreatingAnnotation) {
+        const drawMode = core.getToolMode().getDrawMode?.();
+        useTransparentBackground = insideRect && drawMode !== 'twoClicks';
+      } else {
+        const annotUnderMouse = core.getAnnotationByMouseEvent(e);
+        useTransparentBackground = insideRect && annotUnderMouse === this.state.annotation;
+      }
+
+      this.setState({
+        transparentBackground: useTransparentBackground,
+      });
       this.forceUpdate();
     } else if (
-      this.isMeasurementToolWithInfo(tool) && !this.isSmallAnnotation(tool.annotation) ||
+      (this.isMeasurementToolWithInfo(tool) && !this.isSmallAnnotation(tool.annotation)) ||
       this.shouldShowCustomOverlay(tool.annotation)
     ) {
       openElement('measurementOverlay');
       this.setState({ annotation: tool.annotation });
+      // we know we are creating an annotation at this point because tool.annotation is truthy
+      this.isCreatingAnnotation = true;
     }
+  };
+
+  isMouseInsideRect = (e, overlayElement) => {
+    if (overlayElement === null) {
+      return false;
+    }
+
+    const overlayRect = overlayElement.getBoundingClientRect();
+    const { clientX: x, clientY: y } = e;
+
+    return (
+      x >= overlayRect.left &&
+      x <= overlayRect.right &&
+      y >= overlayRect.top &&
+      y <= overlayRect.bottom
+    );
   };
 
   isMeasurementToolWithInfo(tool) {
@@ -96,7 +137,7 @@ class MeasurementOverlay extends React.PureComponent {
     const minSize = (annotation.getRectPadding() + 1) * 2;
 
     return w <= minSize && h <= minSize;
-  }
+  };
 
   onAnnotationSelected = (annotations, action) => {
     const { openElement, closeElement } = this.props;
@@ -138,22 +179,36 @@ class MeasurementOverlay extends React.PureComponent {
   };
 
   isMeasurementAnnotation = annotation =>
-    ['distanceMeasurement', 'perimeterMeasurement', 'areaMeasurement', 'rectangularAreaMeasurement', 'ellipseMeasurement'].includes(
-      mapAnnotationToKey(annotation),
-    );
+    [
+      'distanceMeasurement',
+      'perimeterMeasurement',
+      'areaMeasurement',
+      'rectangularAreaMeasurement',
+      'ellipseMeasurement',
+    ].includes(mapAnnotationToKey(annotation));
 
   isMeasurementTool = toolName =>
-    ['distanceMeasurement', 'perimeterMeasurement', 'areaMeasurement', 'rectangularAreaMeasurement', 'ellipseMeasurement'].includes(
-      mapToolNameToKey(toolName),
-    );
+    [
+      'distanceMeasurement',
+      'perimeterMeasurement',
+      'areaMeasurement',
+      'rectangularAreaMeasurement',
+      'ellipseMeasurement',
+    ].includes(mapToolNameToKey(toolName));
 
-  shouldShowCustomOverlay = annotation => !this.isMeasurementAnnotation(annotation) && this.props.customMeasurementOverlay.some(overlay => overlay.validate(annotation))
+  shouldShowCustomOverlay = annotation =>
+    !this.isMeasurementAnnotation(annotation) &&
+    this.props.customMeasurementOverlay.some(overlay => overlay.validate(annotation));
 
   shouldShowInfo = annotation => {
     const key = mapAnnotationToKey(annotation);
 
     let showInfo;
-    if (key === 'perimeterMeasurement' || key === 'areaMeasurement' || key === 'rectangularAreaMeasurement') {
+    if (
+      key === 'perimeterMeasurement' ||
+      key === 'areaMeasurement' ||
+      key === 'rectangularAreaMeasurement'
+    ) {
       // for polyline and polygon, there's no useful information we can show if it has no vertices or only one vertex.
       showInfo = annotation.getPath().length > 1;
     } else if (key === 'distanceMeasurement' || key === 'ellipseMeasurement') {
@@ -169,15 +224,9 @@ class MeasurementOverlay extends React.PureComponent {
     if (pt1 && pt2) {
       if (pt3) {
         // calculate the angle using Law of cosines
-        const AB = Math.sqrt(
-          Math.pow(pt2.x - pt1.x, 2) + Math.pow(pt2.y - pt1.y, 2),
-        );
-        const BC = Math.sqrt(
-          Math.pow(pt2.x - pt3.x, 2) + Math.pow(pt2.y - pt3.y, 2),
-        );
-        const AC = Math.sqrt(
-          Math.pow(pt3.x - pt1.x, 2) + Math.pow(pt3.y - pt1.y, 2),
-        );
+        const AB = Math.sqrt(Math.pow(pt2.x - pt1.x, 2) + Math.pow(pt2.y - pt1.y, 2));
+        const BC = Math.sqrt(Math.pow(pt2.x - pt3.x, 2) + Math.pow(pt2.y - pt3.y, 2));
+        const AC = Math.sqrt(Math.pow(pt3.x - pt1.x, 2) + Math.pow(pt3.y - pt1.y, 2));
         angle = Math.acos((BC * BC + AB * AB - AC * AC) / (2 * BC * AB));
       } else {
         // if there are only two points returns the angle in the plane (in radians) between the positive x-axis and the ray from (0,0) to the point (x,y)
@@ -192,9 +241,13 @@ class MeasurementOverlay extends React.PureComponent {
   };
 
   getNumberOfDecimalPlaces = annotation =>
-    (annotation.Precision === 1
-      ? 0
-      : annotation.Precision.toString().split('.')[1].length);
+    annotation.Precision === 1 ? 0 : annotation.Precision.toString().split('.')[1].length;
+
+  syncDraggablePosition = (e, { x, y }) => {
+    this.setState({
+      position: { x, y },
+    });
+  };
 
   renderTitle = () => {
     const { t } = this.props;
@@ -221,9 +274,7 @@ class MeasurementOverlay extends React.PureComponent {
     const scale = annotation.Scale;
     const decimalPlaces = this.getNumberOfDecimalPlaces(annotation);
 
-    return `${scale[0][0]} ${scale[0][1]} = ${scale[1][0].toFixed(
-      decimalPlaces,
-    )} ${scale[1][1]}`;
+    return `${scale[0][0]} ${scale[0][1]} = ${scale[1][0].toFixed(decimalPlaces)} ${scale[1][1]}`;
   };
 
   renderValue = () => {
@@ -298,137 +349,66 @@ class MeasurementOverlay extends React.PureComponent {
   };
 
   render() {
-    const { annotation } = this.state;
+    const { annotation, position, transparentBackground } = this.state;
     const { isDisabled, t, isOpen } = this.props;
-    const className = getClassName('Overlay MeasurementOverlay', this.props);
     const key = mapAnnotationToKey(annotation);
 
     if (isDisabled || !annotation) {
       return null;
     }
 
-    if (this.shouldShowCustomOverlay(annotation)) {
-      // Get the props for this particular custom overlay
-      const customOverlayProps = this.props.customMeasurementOverlay.filter(customOverlay => customOverlay.validate(annotation))[0];
-      return (<CustomMeasurementOverlay annotation={annotation} {...customOverlayProps}/>);
-    }
-
-    if (key === 'ellipseMeasurement') {
-      return (<EllipseMeasurementOverlay annotation={annotation} isOpen={isOpen}/>);
-    }
-
     return (
-      <div className={className} data-element="measurementOverlay">
-        {this.renderTitle()}
-        <div className="measurement__scale">
-          {t('option.measurementOverlay.scale')}: {this.renderScaleRatio()}
+      <Draggable
+        cancel="input"
+        position={position}
+        onDrag={this.syncDraggablePosition}
+        onStop={this.syncDraggablePosition}
+      >
+        <div
+          className={classNames({
+            Overlay: true,
+            MeasurementOverlay: true,
+            open: isOpen,
+            closed: !isOpen,
+            transparent: transparentBackground,
+          })}
+          ref={this.overlayRef}
+          data-element="measurementOverlay"
+        >
+          {this.shouldShowCustomOverlay(annotation) ? (
+            <CustomMeasurementOverlay
+              annotation={annotation}
+              {...this.props.customMeasurementOverlay.filter(customOverlay =>
+                customOverlay.validate(annotation)
+              )[0]}
+            />
+          ) : key === 'ellipseMeasurement' ? (
+            <EllipseMeasurementOverlay annotation={annotation} isOpen={isOpen} />
+          ) : (
+            <>
+              {this.renderTitle()}
+              <div className="measurement__scale">
+                {t('option.measurementOverlay.scale')}: {this.renderScaleRatio()}
+              </div>
+              <div className="measurement__precision">
+                {t('option.shared.precision')}: {annotation.Precision}
+              </div>
+              {key === 'distanceMeasurement' ? (
+                <LineMeasurementInput annotation={annotation} isOpen={isOpen} t={t} />
+              ) : (
+                this.renderValue()
+              )}
+              {key === 'distanceMeasurement' && this.renderDeltas()}
+              {key !== 'rectangularAreaMeasurement' &&
+                key !== 'distanceMeasurement' &&
+                this.renderAngle()}
+            </>
+          )}
         </div>
-        <div className="measurement__precision">
-          {t('option.shared.precision')}: {annotation.Precision}
-        </div>
-        {(key === 'distanceMeasurement') ? (
-          <LineMeasurementInput
-            annotation={annotation}
-            isOpen={isOpen}
-            t={t}
-          />
-        ) : (
-          this.renderValue()
-        )}
-        {key === 'distanceMeasurement' && this.renderDeltas()}
-        {key !== 'rectangularAreaMeasurement' && this.renderAngle()}
-      </div>
+      </Draggable>
     );
   }
 }
-
-function LineMeasurementInput(props) {
-  const { t, annotation, isOpen } = props;
-  const factor = annotation.Measure.axis[0].factor;
-  const unit = annotation.Scale[1][1];
-  const length = (annotation.getLineLength() * factor).toFixed(2);
-
-  const onChangeLineLength = event => {
-    const length = Math.abs(event.target.value);
-    const { annotation } = props;
-    const factor = annotation.Measure.axis[0].factor;
-    const sizeInPt = length / factor;
-    annotation.setLineLength(sizeInPt);
-    forceLineRedraw();
-  };
-
-  const onBlurValidateLineLength = event => {
-    const length = Math.abs(event.target.value);
-    const { annotation } = props;
-    const factor = annotation.Measure.axis[0].factor;
-    const lengthInPts = length / factor;
-    ensureLineIsWithinBounds(lengthInPts);
-  };
-
-  const ensureLineIsWithinBounds = lengthInPts => {
-    const { annotation } = props;
-    const maxLengthInPts = getMaxLineLengthInPts();
-
-    if (lengthInPts > maxLengthInPts) {
-      annotation.setLineLength(maxLengthInPts);
-      forceLineRedraw();
-    }
-  };
-
-  const forceLineRedraw = () => {
-    const { annotation } = props;
-    const annotationManager = core.getAnnotationManager();
-    annotationManager.redrawAnnotation(annotation);
-    annotationManager.trigger('annotationChanged', [[annotation], 'modify', {}]);
-  };
-
-  const getMaxLineLengthInPts = () => {
-    const { annotation } = props;
-    const currentPageIndex = core.getCurrentPage() - 1;
-    const documentWidth = window.docViewer.getPageWidth(currentPageIndex);
-    const documentHeight = window.docViewer.getPageHeight(currentPageIndex);
-    // const decimalPlaces = this.getNumberOfDecimalPlaces(annotation);// WILL NEED TO REDO THIS
-    const angleInDegrees = annotation.getAngle() * (180 / Math.PI).toFixed(2);
-    const startPoint = annotation.getStartPoint();
-    const startX = startPoint.x;
-    const startY = startPoint.y;
-
-    let maxX;
-    let maxY;
-    if (Math.abs(angleInDegrees) < 90) {
-      maxX = documentWidth;
-    } else {
-      maxX = 0;
-    }
-
-    if (angleInDegrees > 0) {
-      maxY = documentHeight;
-    } else {
-      maxY = 0;
-    }
-
-    const maxLenX = Math.abs((maxX - startX) / Math.cos(annotation.getAngle()));
-    const maxLenY = Math.abs((maxY - startY) / Math.sin(annotation.getAngle()));
-
-    return Math.min(maxLenX, maxLenY);
-  };
-
-  if (!isOpen) {
-    ensureLineIsWithinBounds(annotation.getLineLength());
-  }
-
-  return (
-    <div className="measurement__value">
-      {t('option.measurementOverlay.distance')}: <input className="lineMeasurementInput" type="number" min="0" value={length} onChange={event => onChangeLineLength(event)} onBlur={event => onBlurValidateLineLength(event)}/> {unit}
-    </div>
-  );
-}
-
-LineMeasurementInput.propTypes = {
-  annotation: PropTypes.object.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = state => ({
   isOpen: selectors.isElementOpen(state, 'measurementOverlay'),
@@ -442,7 +422,4 @@ const mapDispatchToProps = {
   closeElement: actions.closeElement,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withTranslation()(MeasurementOverlay));
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(MeasurementOverlay));

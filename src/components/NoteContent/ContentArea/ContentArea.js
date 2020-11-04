@@ -1,22 +1,23 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import AutoResizeTextarea from 'components/AutoResizeTextarea';
+import NoteTextarea from 'components/NoteTextarea';
 
 import core from 'core';
+import mentionsManager from 'helpers/MentionsManager';
+import selectors from 'selectors';
 
 // a component that contains the content textarea, the save button and the cancel button
-const ContentArea = ({
-  annotation,
-  setIsEditing,
-  textAreaValue,
-  onTextAreaValueChange,
-}) => {
-  const contents = annotation.getContents();
+const ContentArea = ({ annotation, setIsEditing, textAreaValue, onTextAreaValueChange }) => {
+  const [isMentionEnabled] = useSelector(state => [
+    selectors.getIsMentionEnabled(state),
+  ]);
   const [t] = useTranslation();
   const textareaRef = useRef();
+  const contents = annotation.getCustomData('trn-mention')?.contents || annotation.getContents();
 
   useEffect(() => {
     // on initial mount, focus the last character of the textarea
@@ -33,23 +34,32 @@ const ContentArea = ({
     e.preventDefault();
 
     const hasEdited = textAreaValue !== contents;
-    if (hasEdited) {
-      core.setNoteContents(annotation, textAreaValue);
-      if (annotation instanceof window.Annotations.FreeTextAnnotation) {
-        core.drawAnnotationsFromList([annotation]);
-      }
+    if (!hasEdited) {
+      return;
+    }
 
-      setIsEditing(false);
+    setIsEditing(false);
+
+    if (isMentionEnabled) {
+      const { plainTextValue, ids } = mentionsManager.extractMentionDataFromStr(textAreaValue);
+
+      annotation.setCustomData('trn-mention', {
+        contents: textAreaValue,
+        ids,
+      });
+      core.setNoteContents(annotation, plainTextValue);
+    } else {
+      core.setNoteContents(annotation, textAreaValue);
+    }
+
+    if (annotation instanceof window.Annotations.FreeTextAnnotation) {
+      core.drawAnnotationsFromList([annotation]);
     }
   };
 
-  const saveBtnClass = classNames({
-    disabled: textAreaValue === contents,
-  });
-
   return (
     <div className="edit-content">
-      <AutoResizeTextarea
+      <NoteTextarea
         ref={el => {
           textareaRef.current = el;
         }}
@@ -60,7 +70,12 @@ const ContentArea = ({
         placeholder={`${t('action.comment')}...`}
       />
       <span className="buttons">
-        <button className={saveBtnClass} onMouseDown={setContents}>
+        <button
+          className={classNames({
+            disabled: textAreaValue === contents,
+          })}
+          onMouseDown={setContents}
+        >
           {t('action.save')}
         </button>
         <button

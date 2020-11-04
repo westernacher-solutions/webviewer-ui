@@ -38,7 +38,8 @@
     "draw": "Trek",
     "type": "Type",
     "upload": "Uploaden",
-    "link": "Koppeling"
+    "link": "Koppeling",
+    "fileAttachmentDownload": "Download bijgevoegd bestand"
   },
   "annotation": {
     "areaMeasurement": "Oppervlaktemeting",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "Afstandsmeting",
     "ellipse": "Ellips",
     "eraser": "Gom",
+    "fileattachment": "Bestandsbijlage",
     "freehand": "Vrije hand",
     "freehand2": "Vrije hand",
     "freetext": "Tekst plaatsen",
@@ -69,8 +71,7 @@
     "strikeout": "Doorstrepen",
     "underline": "Onderstrepen",
     "custom": "maatwerk",
-    "rubberStamp": "Rubberen stempel",
-    "fileattachment": "Bestandsbijlage"
+    "rubberStamp": "Rubberen stempel"
   },
   "rubberStamp": {
     "Approved": "Goedgekeurd",
@@ -178,6 +179,7 @@
       "all": "Alles",
       "current": "Huidige",
       "pages": "Pagina's",
+      "includeAnnotations": "Voeg annotaties toe",
       "includeComments": "Inclusief commentaar",
       "addWatermarkSettings": "Watermerkinstellingen toevoegen"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "Stijl",
-      "regular": "regelmatig",
+      "solid": "Solide",
       "cloudy": "Bewolkt"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "Delete",
       "rotateClockwise": "Met de klok mee",
-      "rotateCounterClockwise": "Tegen de klok in"
+      "rotateCounterClockwise": "Tegen de klok in",
+      "extractZeroPageError": "Er zijn geen pagina's geselecteerd om te extraheren"
+    },
+    "richText": {
+      "bold": "Vet",
+      "italic": "Cursief",
+      "underline": "Onderstrepen",
+      "strikeout": "Doorhalen"
     }
   },
   "warning": {
@@ -286,7 +295,13 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl L)",
+      "strikeout": "(Ctrl K)"
+    }
   },
   "tool": {
     "pan": "Schuiven",
@@ -299,5 +314,41 @@
     "page": "Bladzijde",
     "enterurl": "Voer de URL in waarnaar u wilt linken",
     "enterpage": "Selecteer het paginanummer waarnaar u wilt linken"
+  },
+  "datePicker": {
+    "previousMonth": "Vorige maand",
+    "nextMonth": "Volgende maand",
+    "months": {
+      "0": "januari",
+      "1": "februari",
+      "2": "maart",
+      "3": "april",
+      "4": "mei",
+      "5": "juni",
+      "6": "juli",
+      "7": "augustus",
+      "8": "september",
+      "9": "oktober",
+      "10": "november",
+      "11": "december"
+    },
+    "weekdays": {
+      "0": "zondag",
+      "1": "maandag",
+      "2": "dinsdag",
+      "3": "woensdag",
+      "4": "donderdag",
+      "5": "vrijdag",
+      "6": "zaterdag"
+    },
+    "weekdaysShort": {
+      "0": "zo.",
+      "1": "ma.",
+      "2": "di.",
+      "3": "wo.",
+      "4": "do.",
+      "5": "vr.",
+      "6": "za."
+    }
   }
 }

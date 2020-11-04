@@ -32,10 +32,13 @@ const Note = ({ annotation }) => {
 
   useEffect(() => {
     const prevHeight = containerHeightRef.current;
-    const currHeight = window.getComputedStyle(containerRef.current).height;
+    const currHeight = containerRef.current.getBoundingClientRect().height;
+    containerHeightRef.current = currHeight;
 
-    if (!prevHeight || prevHeight !== currHeight) {
-      containerHeightRef.current = currHeight;
+    // have a prevHeight check here because we don't want to call resize on mount
+    // use Math.round because in some cases in IE11 these two numbers will differ in just 0.00001
+    // and we don't want call resize in this case
+    if (prevHeight && Math.round(prevHeight) !== Math.round(currHeight)) {
       resize();
     }
   });
@@ -47,7 +50,7 @@ const Note = ({ annotation }) => {
         if (child) {
           child.parentNode.removeChild(child);
         }
-      })
+      });
 
       ids.current = [];
 
@@ -62,14 +65,14 @@ const Note = ({ annotation }) => {
         currId++;
         ids.current.push(id);
         element.setAttribute('data-webviewer-custom-element', id);
-        element.addEventListener('mousedown', (e) => {
+        element.addEventListener('mousedown', e => {
           e.stopPropagation();
         });
 
         return element;
-      })
+      });
     }
-  })
+  });
 
   const handleNoteClick = e => {
     // stop bubbling up otherwise the note will be closed

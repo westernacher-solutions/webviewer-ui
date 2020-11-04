@@ -74,6 +74,8 @@ export const getRotation = state => state.viewer.rotation;
 
 export const getNoteDateFormat = state => state.viewer.noteDateFormat;
 
+export const getPrintedNoteDateFormat = state => state.viewer.printedNoteDateFormat;
+
 export const isFullScreen = state => state.viewer.isFullScreen;
 
 export const doesDocumentAutoLoad = state => state.viewer.doesAutoLoad;
@@ -120,6 +122,10 @@ export const getIsNoteEditing = state => state.viewer.isNoteEditing;
 
 export const getMaxSignaturesCount = state => state.viewer.maxSignaturesCount;
 
+export const getUserData = state => state.viewer.userData;
+
+export const getIsMentionEnabled = state => !!state.viewer.userData;
+
 export const getSignatureFonts = state => state.viewer.signatureFonts;
 
 export const getSelectedTab = (state, id) => state.viewer.tab[id];
@@ -135,9 +141,15 @@ export const getIsThumbnailReorderingEnabled = state => state.viewer.isThumbnail
 
 export const getIsThumbnailMultiselectEnabled = state => state.viewer.isThumbnailMultiselect;
 
+export const getIsMultipleViewerMerging = state => state.viewer.isMultipleViewerMerging;
+
 export const getAllowPageNavigation = state => state.viewer.allowPageNavigation;
 
 export const getCustomMeasurementOverlay = state => state.viewer.customMeasurementOverlay;
+
+export const getAnnotationContentOverlayHandler = state => state.viewer.annotationContentOverlayHandler;
+
+export const getEnableMouseWheelZoom = state => state.viewer.enableMouseWheelZoom;
 
 // warning message
 export const getWarningMessage = state => state.viewer.warning?.message || '';

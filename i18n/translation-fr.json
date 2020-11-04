@@ -18,7 +18,7 @@
     "exitFullscreen": "Quitter le plein écran",
     "fit": "Fit",
     "fitToPage": "Fit à la page",
-    "fitToWidth": "Fit à la largeur",
+    "fitToWidth": "Ajuster à la largeur",
     "openFile": "Ouvrir un fichier",
     "print": "Imprimer",
     "ok": "OK",
@@ -38,7 +38,8 @@
     "draw": "Dessiner",
     "type": "Type",
     "upload": "Télécharger",
-    "link": "Lien"
+    "link": "Lien",
+    "fileAttachmentDownload": "Télécharger le fichier joint"
   },
   "annotation": {
     "areaMeasurement": "Surface mesurée",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "Mesure de distance",
     "ellipse": "Ellipse",
     "eraser": "La gomme",
+    "fileattachment": "Pièce jointe",
     "freehand": "Stylo",
     "freehand2": "Stylo",
     "freetext": "Texte libre",
@@ -69,8 +71,7 @@
     "strikeout": "Barré",
     "underline": "Soulignage",
     "custom": "personnalisation",
-    "rubberStamp": "Rubber Stamp",
-    "fileattachment": "Pièce jointe"
+    "rubberStamp": "Rubber Stamp"
   },
   "rubberStamp": {
     "Approved": "Approuvée",
@@ -178,6 +179,7 @@
       "all": "Toutes",
       "current": "Actuelle",
       "pages": "Pages",
+      "includeAnnotations": "Inclure des annotations",
       "includeComments": "Inclure les commentaires",
       "addWatermarkSettings": "Ajouter des paramètres de filigrane"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "Style",
-      "regular": "Ordinaire",
+      "solid": "Solide",
       "cloudy": "Nuageux"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "Supprimer",
       "rotateClockwise": "Dans le sens horaire",
-      "rotateCounterClockwise": "Dans le sens antihoraire"
+      "rotateCounterClockwise": "Dans le sens antihoraire",
+      "extractZeroPageError": "Aucune page n'a été sélectionnée pour l'extraction"
+    },
+    "richText": {
+      "bold": "Audacieux",
+      "italic": "Italique",
+      "underline": "Souligner",
+      "strikeout": "Barré"
     }
   },
   "warning": {
@@ -286,12 +295,18 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl L)",
+      "strikeout": "(Ctrl K)"
+    }
   },
   "tool": {
     "pan": "Panoramique",
     "select": "Sélection",
-    "Marquee": "Marquee Zoom",
+    "Marquee": "Zoom sur la sélection",
     "Link": "URL de lien ou page"
   },
   "link": {
@@ -299,5 +314,41 @@
     "page": "Page",
     "enterurl": "Entrez l'URL à laquelle vous souhaitez créer un lien",
     "enterpage": "Sélectionnez le numéro de page auquel vous souhaitez lier"
+  },
+  "datePicker": {
+    "previousMonth": "Le mois précédent",
+    "nextMonth": "Le mois prochain",
+    "months": {
+      "0": "janvier",
+      "1": "février",
+      "2": "mars",
+      "3": "avril",
+      "4": "mai",
+      "5": "juin",
+      "6": "juillet",
+      "7": "août",
+      "8": "septembre",
+      "9": "octobre",
+      "10": "novembre",
+      "11": "décembre"
+    },
+    "weekdays": {
+      "0": "dimanche",
+      "1": "lundi",
+      "2": "mardi",
+      "3": "mercredi",
+      "4": "jeudi",
+      "5": "vendredi",
+      "6": "samedi"
+    },
+    "weekdaysShort": {
+      "0": "dim.",
+      "1": "lun.",
+      "2": "mar.",
+      "3": "mer.",
+      "4": "jeu.",
+      "5": "ven.",
+      "6": "sam."
+    }
   }
 }

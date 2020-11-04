@@ -38,7 +38,8 @@
     "draw": "ドロー",
     "type": "タイプ",
     "upload": "アップロードする",
-    "link": "リンク"
+    "link": "リンク",
+    "fileAttachmentDownload": "添付ファイルをダウンロード"
   },
   "annotation": {
     "areaMeasurement": "面積測定",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "距離測定",
     "ellipse": "楕円",
     "eraser": "消しゴム",
+    "fileattachment": "添付ファイル",
     "freehand": "フリーハンド",
     "freehand2": "フリーハンド",
     "freetext": "フリーテキスト",
@@ -69,8 +71,7 @@
     "strikeout": "抹消線",
     "underline": "下線",
     "custom": "カスタム",
-    "rubberStamp": "ゴム印",
-    "fileattachment": "添付ファイル"
+    "rubberStamp": "ゴム印"
   },
   "rubberStamp": {
     "Approved": "承認済み",
@@ -178,6 +179,7 @@
       "all": "すべて",
       "current": "現在の",
       "pages": "ページ",
+      "includeAnnotations": "注釈を含める",
       "includeComments": "コメントを含める",
       "addWatermarkSettings": "透かし設定を追加"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "スタイル",
-      "regular": "レギュラー",
+      "solid": "固体",
       "cloudy": "曇り"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "削除する",
       "rotateClockwise": "時計回り",
-      "rotateCounterClockwise": "反時計回り"
+      "rotateCounterClockwise": "反時計回り",
+      "extractZeroPageError": "抽出するページが選択されていません"
+    },
+    "richText": {
+      "bold": "太字",
+      "italic": "イタリック",
+      "underline": "下線",
+      "strikeout": "取り消し線"
     }
   },
   "warning": {
@@ -286,7 +295,13 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "（Ctrl B）",
+      "italic": "（Ctrl I）",
+      "underline": "（Ctrl L）",
+      "strikeout": "（Ctrl K）"
+    }
   },
   "tool": {
     "pan": "パン",
@@ -299,5 +314,41 @@
     "page": "ページ",
     "enterurl": "リンクするURLを入力してください",
     "enterpage": "リンクするページ番号を選択します"
+  },
+  "datePicker": {
+    "previousMonth": "前月",
+    "nextMonth": "来月",
+    "months": {
+      "0": "一月",
+      "1": "二月",
+      "2": "三月",
+      "3": "四月",
+      "4": "五月",
+      "5": "六月",
+      "6": "七月",
+      "7": "八月",
+      "8": "九月",
+      "9": "十月",
+      "10": "十一月",
+      "11": "十二月"
+    },
+    "weekdays": {
+      "0": "日曜日",
+      "1": "月曜日",
+      "2": "火曜日",
+      "3": "水曜日",
+      "4": "木曜日",
+      "5": "金曜日",
+      "6": "土曜日"
+    },
+    "weekdaysShort": {
+      "0": "日",
+      "1": "月",
+      "2": "火",
+      "3": "水",
+      "4": "木",
+      "5": "金",
+      "6": "土"
+    }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -10,11 +10,13 @@ import './Tooltip.scss';
 const propTypes = {
   children: PropTypes.element.isRequired,
   content: PropTypes.string,
+  hideShortcut: PropTypes.bool,
 };
 
-const Tooltip = ({ content = '', children }) => {
+const Tooltip = forwardRef( ({ content = '', children, hideShortcut }, forwardedRef) => {
   const timeoutRef = useRef(null);
-  const childRef = useRef(null);
+  const childRef = forwardedRef ? forwardedRef : useRef(null);
+
   const tooltipRef = useRef(null);
   const [show, setShow] = useState(false);
   const [opacity, setOpacity] = useState(0);
@@ -42,7 +44,7 @@ const Tooltip = ({ content = '', children }) => {
     childRef.current?.addEventListener('mouseenter', showToolTip);
     childRef.current?.addEventListener('mouseleave', hideTooltip);
     childRef.current?.addEventListener('click', hideTooltip);
-  }, []);
+  }, [childRef]);
 
   useLayoutEffect(() => {
     const childEle = childRef.current;
@@ -82,7 +84,7 @@ const Tooltip = ({ content = '', children }) => {
           && newLeft > 0
           && newLeft + tooltipRect.width < window.innerWidth
         );
-      });
+      }) || 'bottom';
 
       const { top: tooltipTop, left: tooltipLeft } = locationTopLeftMap[
         bestLocation
@@ -103,7 +105,7 @@ const Tooltip = ({ content = '', children }) => {
     } else {
       setOpacity(0);
     }
-  }, [show]);
+  }, [childRef, show]);
 
   const isUsingMobileDevices = isIOS || isAndroid;
   const child = React.cloneElement(children, {
@@ -112,8 +114,9 @@ const Tooltip = ({ content = '', children }) => {
   const translatedContent = t(content);
   // If shortcut.xxx exists in translation-en.json file
   // method t will return the shortcut, otherwise it will return shortcut.xxx
-  const hasShortcut = t(`shortcut.${content.split('.')[1]}`).indexOf('.') === -1;
-  let shortcut = t(`shortcut.${content.split('.')[1]}`);
+  const shortcutKey = content.slice(content.indexOf('.') + 1);
+  const hasShortcut = t(`shortcut.${shortcutKey}`).indexOf('.') === -1;
+  let shortcut = t(`shortcut.${shortcutKey}`);
   if (isMac) {
     shortcut = shortcut.replace('Ctrl', 'Cmd');
   }
@@ -132,7 +135,7 @@ const Tooltip = ({ content = '', children }) => {
           >
             <div className={`tooltip__content`}>
               {translatedContent}
-              {hasShortcut && (
+              {hasShortcut && !hideShortcut && (
                 <span className="tooltip__shortcut">{shortcut}</span>
               )}
             </div>
@@ -141,7 +144,7 @@ const Tooltip = ({ content = '', children }) => {
         )}
     </React.Fragment>
   );
-};
+});
 
 Tooltip.propTypes = propTypes;
 

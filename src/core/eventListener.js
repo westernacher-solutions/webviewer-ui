@@ -14,6 +14,7 @@ export const removeEventListener = (event, eventListener) => {
 
 const getEventToObjectMap = () => {
   const annotManager = window.docViewer.getAnnotationManager();
+  const editBoxManager = annotManager.getEditBoxManager();
 
   return {
     annotationsLoaded: window.docViewer,
@@ -32,7 +33,6 @@ const getEventToObjectMap = () => {
     mouseRightUp: window.docViewer,
     pageComplete: window.docViewer,
     searchInProgress: window.docViewer,
-    searchFailed: window.docViewer,
     textSelected: window.docViewer,
     beginRendering: window.docViewer,
     finishedRendering: window.docViewer,
@@ -61,5 +61,9 @@ const getEventToObjectMap = () => {
     notify: annotManager,
     setNoteText: annotManager,
     fileAttachmentDataAvailable: window.docViewer,
+    editorFocus: editBoxManager,
+    editorBlur: editBoxManager,
+    editorTextChanged: editBoxManager,
+    editorSelectionChanged: editBoxManager,
   };
 };

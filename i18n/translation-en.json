@@ -25,7 +25,7 @@
     "reply": "Reply",
     "rotate": "Rotate",
     "rotateClockwise": "Clockwise",
-    "rotateCounterClockwise": "Counter-clockwise",
+    "rotateCounterClockwise": "Counterclockwise",
     "save": "Save",
     "create": "Create",
     "showMoreResults": "Show more results",
@@ -38,7 +38,8 @@
     "draw": "Draw",
     "type": "Type",
     "upload": "Upload",
-    "link": "Link"
+    "link": "Link",
+    "fileAttachmentDownload": "Download attached file"
   },
   "annotation": {
     "areaMeasurement": "Area measurement",
@@ -132,7 +133,7 @@
     "passwordRequired": "Password required",
     "preparingToPrint": "Preparing to print...",
     "annotationReplyCount": "{{count}} Reply",
-    "annotationReplyCount_plural" : "{{count}} Replies",
+    "annotationReplyCount_plural": "{{count}} Replies",
     "printTotalPageCount": "Total: {{count}} page",
     "printTotalPageCount_plural": "Total: {{count}} pages",
     "processing": "Processing...",
@@ -179,6 +180,7 @@
       "all": "All",
       "current": "Current",
       "pages": "Pages",
+      "includeAnnotations": "Include annotations",
       "includeComments": "Include comments",
       "addWatermarkSettings": "Add Watermark Settings"
     },
@@ -227,7 +229,7 @@
     },
     "styleOption": {
       "style": "Style",
-      "regular": "Regular",
+      "solid": "Solid",
       "cloudy": "Cloudy"
     },
     "slider": {
@@ -250,20 +252,28 @@
     "thumbnailPanel": {
       "delete": "Delete",
       "rotateClockwise": "Clockwise",
-      "rotateCounterClockwise": "Counter-clockwise"
+      "rotateCounterClockwise": "Counterclockwise",
+      "extractZeroPageError": "No pages were selected to extract"
+    },
+    "richText": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "strikeout": "Strikeout"
     }
   },
   "warning": {
-    "deletePage" :{
+    "deletePage": {
       "deleteTitle": "Delete Page",
       "deleteMessage": "Are you sure you want to delete the selected page(s). This can't be undone",
       "deleteLastPageMessage": "This would result in no pages remaining. Please leave at least one page"
     },
-    "redaction":{
+    "redaction": {
       "applyTile": "Apply Redaction",
       "applyMessage": "This action will permanently remove all items selected for redaction. It cannot be undone."
     }
   },
+
   "shortcut": {
     "arrow": "(A)",
     "callout": "(C)",
@@ -287,7 +297,13 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl L)",
+      "strikeout": "(Ctrl K)"
+    }
   },
   "tool": {
     "pan": "Pan",
@@ -300,5 +316,33 @@
     "page": "Page",
     "enterurl": "Enter URL you would like to link to",
     "enterpage": "Select the page number you would like to link to"
+  },
+  "datePicker": {
+    "previousMonth": "Previous Month",
+    "nextMonth": "Next Month",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdays": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   }
 }

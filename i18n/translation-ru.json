@@ -38,7 +38,8 @@
     "draw": "Привлечь",
     "type": "Тип",
     "upload": "Загрузить",
-    "link": "Ссылка на сайт"
+    "link": "Ссылка на сайт",
+    "fileAttachmentDownload": "Скачать прикрепленный файл"
   },
   "annotation": {
     "areaMeasurement": "Площадь",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "Дистанция",
     "ellipse": "Эллипс",
     "eraser": "ластик",
+    "fileattachment": "Файл вложения",
     "freehand": "От руки",
     "freehand2": "От руки",
     "freetext": "Текст",
@@ -69,8 +71,7 @@
     "strikeout": "Зачеркнуть",
     "underline": "Подчеркнуть",
     "custom": "Свой стиль",
-    "rubberStamp": "Штамп",
-    "fileattachment": "Файл вложения"
+    "rubberStamp": "Штамп"
   },
   "rubberStamp": {
     "Approved": "Одобренный",
@@ -178,6 +179,7 @@
       "all": "Все",
       "current": "Текущий",
       "pages": "Страницы",
+      "includeAnnotations": "Включить аннотации",
       "includeComments": "Приложить комментарии",
       "addWatermarkSettings": "Добавить настройки водяного знака"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "Стиль",
-      "regular": "регулярное",
+      "solid": "твердый",
       "cloudy": "облачный"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "удалять",
       "rotateClockwise": "по часовой стрелке",
-      "rotateCounterClockwise": "Против часовой стрелки"
+      "rotateCounterClockwise": "Против часовой стрелки",
+      "extractZeroPageError": "Страницы не были выбраны для извлечения"
+    },
+    "richText": {
+      "bold": "Жирное лицо",
+      "italic": "курсивный",
+      "underline": "Подчеркнутый",
+      "strikeout": "Зачеркнутый"
     }
   },
   "warning": {
@@ -286,7 +295,13 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl L)",
+      "strikeout": "(Ctrl K)"
+    }
   },
   "tool": {
     "pan": "Панорамирование",
@@ -299,5 +314,41 @@
     "page": "страница",
     "enterurl": "Введите URL, на который вы хотите сослаться",
     "enterpage": "Выберите номер страницы, на которую вы хотите сослаться"
+  },
+  "datePicker": {
+    "previousMonth": "Предыдущий месяц",
+    "nextMonth": "Следующем месяце",
+    "months": {
+      "0": "январь",
+      "1": "февраль",
+      "2": "март",
+      "3": "апрель",
+      "4": "май",
+      "5": "июнь",
+      "6": "июль",
+      "7": "август",
+      "8": "сентябрь",
+      "9": "октябрь",
+      "10": "ноябрь",
+      "11": "декабрь"
+    },
+    "weekdays": {
+      "0": "воскресенье",
+      "1": "понедельник",
+      "2": "вторник",
+      "3": "среда",
+      "4": "четверг",
+      "5": "пятница",
+      "6": "суббота"
+    },
+    "weekdaysShort": {
+      "0": "вс",
+      "1": "пн",
+      "2": "вт",
+      "3": "ср",
+      "4": "чт",
+      "5": "пт",
+      "6": "сб"
+    }
   }
 }

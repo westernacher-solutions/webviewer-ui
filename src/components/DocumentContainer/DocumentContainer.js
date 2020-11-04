@@ -32,6 +32,7 @@ class DocumentContainer extends React.PureComponent {
     displayMode: PropTypes.string.isRequired,
     leftPanelWidth: PropTypes.number,
     allowPageNavigation: PropTypes.bool.isRequired,
+    isMouseWheelZoomEnabled: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -114,7 +115,8 @@ class DocumentContainer extends React.PureComponent {
   }
 
   onWheel = e => {
-    if (e.metaKey || e.ctrlKey) {
+    const { isMouseWheelZoomEnabled } = this.props;
+    if (isMouseWheelZoomEnabled && e.metaKey || e.ctrlKey) {
       e.preventDefault();
       this.wheelToZoom(e);
     } else if (!core.isContinuousDisplayMode() && this.props.allowPageNavigation) {
@@ -128,9 +130,13 @@ class DocumentContainer extends React.PureComponent {
     const reachedTop = scrollTop === 0;
     const reachedBottom = Math.abs(scrollTop + clientHeight - scrollHeight) <= 1;
 
-    if (e.deltaY < 0 && reachedTop && currentPage > 1) {
+    // depending on the track pad used (see this on MacBooks), deltaY can be between -1 and 1 when doing horizontal scrolling which cause page to change
+    const scrollingUp = e.deltaY < 0 && Math.abs(e.deltaY) > Math.abs(e.deltaX);
+    const scrollingDown = e.deltaY > 0 && Math.abs(e.deltaY) > Math.abs(e.deltaX);
+
+    if (scrollingUp && reachedTop && currentPage > 1) {
       this.pageUp();
-    } else if (e.deltaY > 0 && reachedBottom && currentPage < totalPages) {
+    } else if (scrollingDown && reachedBottom && currentPage < totalPages) {
       this.pageDown();
     }
   }
@@ -220,6 +226,7 @@ const mapStateToProps = state => ({
   // using leftPanelWidth to trigger render
   leftPanelWidth: selectors.getLeftPanelWidth(state),
   allowPageNavigation: selectors.getAllowPageNavigation(state),
+  isMouseWheelZoomEnabled: selectors.getEnableMouseWheelZoom(state),
 });
 
 const mapDispatchToProps = dispatch => ({

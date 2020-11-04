@@ -56,6 +56,8 @@ import getShowSideWindow from './getShowSideWindow';
 import getSideWindowVisibility from './getSideWindowVisibility';
 import getToolMode from './getToolMode';
 import getZoomLevel from './getZoomLevel';
+import getMaxZoomLevel from './getMaxZoomLevel';
+import getMinZoomLevel from './getMinZoomLevel';
 import goToFirstPage from './goToFirstPage';
 import goToLastPage from './goToLastPage';
 import goToNextPage from './goToNextPage';
@@ -68,6 +70,7 @@ import isMobileDevice from './isMobileDevice';
 import isReadOnly from './isReadOnly';
 import isToolDisabled from './isToolDisabled';
 import loadDocument from './loadDocument';
+import mentions from './mentions';
 import openElement from './openElement';
 import openElements from './openElements';
 import print from './print';
@@ -82,6 +85,7 @@ import setActiveHeaderGroup from './setActiveHeaderGroup';
 import setActiveLeftPanel from './setActiveLeftPanel';
 import setAdminUser from './setAdminUser';
 import setAnnotationUser from './setAnnotationUser';
+import setActivePalette from './setActivePalette';
 import setColorPalette from './setColorPalette';
 import setCurrentPageNumber from './setCurrentPageNumber';
 import setCustomNoteFilter from './setCustomNoteFilter';
@@ -96,6 +100,7 @@ import setLayoutMode from './setLayoutMode';
 import setMaxZoomLevel from './setMaxZoomLevel';
 import setMinZoomLevel from './setMinZoomLevel';
 import setNoteDateFormat from './setNoteDateFormat';
+import setPrintedNoteDateFormat from './setPrintedNoteDateFormat';
 import setNotesPanelSort from './setNotesPanelSort';
 import setPageLabels from './setPageLabels';
 import setPrintQuality from './setPrintQuality';
@@ -130,6 +135,9 @@ import setCustomMeasurementOverlayInfo from './setCustomMeasurementOverlayInfo';
 import setNoteTransformFunction from './setNoteTransformFunction';
 import selectThumbnailPages from './selectThumbnailPages';
 import unselectThumbnailPages from './unselectThumbnailPages';
+import setSearchResults from './setSearchResults';
+import setActiveResult from './setActiveResult';
+import setAnnotationContentOverlayHandler from './setAnnotationContentOverlayHandler';
 
 export default store => {
   window.readerControl = {
@@ -155,6 +163,8 @@ export default store => {
     getLayoutMode: getLayoutMode(store),
     getToolMode,
     getZoomLevel,
+    getMaxZoomLevel,
+    getMinZoomLevel,
     hotkeys,
     isElementDisabled: isElementDisabled(store),
     isElementOpen: isElementOpen(store),
@@ -181,6 +191,7 @@ export default store => {
     setMaxZoomLevel: setMaxZoomLevel(store),
     setMinZoomLevel: setMinZoomLevel(store),
     setNoteDateFormat: setNoteDateFormat(store),
+    setPrintedNoteDateFormat: setPrintedNoteDateFormat(store),
     setMeasurementUnits: setMeasurementUnits(store),
     setPageLabels: setPageLabels(store),
     setPrintQuality: setPrintQuality(store),
@@ -191,6 +202,8 @@ export default store => {
     setToolMode: setToolMode(store),
     setZoomLevel,
     setZoomList: setZoomList(store),
+    setSearchResults: setSearchResults(store),
+    setActiveResult: setActiveResult(store),
     showErrorMessage: showErrorMessage(store),
     textPopup: textPopup(store),
     toggleElement: toggleElement(store),
@@ -200,12 +213,14 @@ export default store => {
     updateElement: updateElement(store),
     useEmbeddedPrint: useEmbeddedPrint(store),
     setMaxSignaturesCount: setMaxSignaturesCount(store),
+    mentions: mentions(store),
     setCustomMeasurementOverlayInfo: setCustomMeasurementOverlayInfo(store),
     setSignatureFonts: setSignatureFonts(store),
     setSelectedTab: setSelectedTab(store),
     getSelectedThumbnailPageNumbers: getSelectedThumbnailPageNumbers(store),
     selectThumbnailPages: selectThumbnailPages(store),
     unselectThumbnailPages: unselectThumbnailPages(store),
+    setAnnotationContentOverlayHandler: setAnnotationContentOverlayHandler(store),
 
     // undocumented and deprecated, to be removed in 7.0
     closeElement: closeElement(store),
@@ -241,6 +256,8 @@ export default store => {
     setNotesPanelSort: setNotesPanelSort(store),
     setShowSideWindow: setShowSideWindow(store),
     setSideWindowVisibility: setSideWindowVisibility(store),
+    setActivePalette: setActivePalette(store),
+    setColorPalette: setColorPalette(store),
     disableTool: disableTool(store),
     enableAllElements: enableAllElements(store),
     goToFirstPage,
@@ -266,7 +283,6 @@ export default store => {
     loadedFromServer: false,
     serverFailed: false,
     i18n: i18next,
-    setColorPalette: setColorPalette(store),
     showWarningMessage: showWarningMessage(store),
     updateOutlines: updateOutlines(store),
     getBBAnnotManager,

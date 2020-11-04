@@ -12,9 +12,11 @@
  * @property {string} TextSelection Ability to select text in a document.
  * @property {string} TouchScrollLock Lock document scrolling in one direction in mobile devices.
  * @property {string} Copy Ability to copy text or annotations use Ctrl/Cmd + C hotkeys or the copy button.
+ * @property {string} MultipleViewerMerging Ability to drag and drop pages from one instance of WebViewer into another
  * @property {string} ThumbnailMerging Ability to drag and drop a file into the thumbnail panel to merge
  * @property {string} ThumbnailReordering Ability to reorder pages using the thumbnail panel
  * @property {string} PageNavigation Ability to navigate through pages using mouse wheel, arrow up/down keys and the swipe gesture.
+ * @property {string} MouseWheelZoom Ability to zoom when holding ctrl/cmd + mouse wheel.
  * @example
 WebViewer(...)
   .then(function(instance) {
@@ -36,8 +38,10 @@ export default {
   TextSelection: 'TextSelection',
   TouchScrollLock: 'TouchScrollLock',
   Copy: 'Copy',
+  MultipleViewerMerging: 'MultipleViewerMerging',
   ThumbnailMerging: 'ThumbnailMerging',
   ThumbnailReordering: 'ThumbnailReordering',
   ThumbnailMultiselect: 'ThumbnailMultiselect',
   PageNavigation: 'PageNavigation',
+  MouseWheelZoom: 'MouseWheelZoom',
 };

@@ -38,7 +38,8 @@
     "draw": "畫",
     "type": "類型",
     "upload": "上載",
-    "link": "鏈接"
+    "link": "鏈接",
+    "fileAttachmentDownload": "下載附件"
   },
   "annotation": {
     "areaMeasurement": "測量面積",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "測量距離",
     "ellipse": "橢圓",
     "eraser": "橡皮",
+    "fileattachment": "文件附件",
     "freehand": "手繪",
     "freehand2": "手繪",
     "freetext": "任意文字",
@@ -69,8 +71,7 @@
     "strikeout": "刪除線",
     "underline": "底線",
     "custom": "自訂",
-    "rubberStamp": "橡皮圖章",
-    "fileattachment": "文件附件"
+    "rubberStamp": "橡皮圖章"
   },
   "rubberStamp": {
     "Approved": "已批准",
@@ -178,6 +179,7 @@
       "all": "全部",
       "current": "目前",
       "pages": "頁面",
+      "includeAnnotations": "包括註釋",
       "includeComments": "包括評論",
       "addWatermarkSettings": "添加水印設置"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "樣式",
-      "regular": "定期",
+      "solid": "固體",
       "cloudy": "多雲的"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "刪除",
       "rotateClockwise": "順時針",
-      "rotateCounterClockwise": "逆時針方向"
+      "rotateCounterClockwise": "逆時針方向",
+      "extractZeroPageError": "沒有選擇要提取的頁面"
+    },
+    "richText": {
+      "bold": "粗體",
+      "italic": "斜體",
+      "underline": "下劃綫",
+      "strikeout": "刪除綫"
     }
   },
   "warning": {
@@ -286,7 +295,13 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "（Ctrl B）",
+      "italic": "（Ctrl I）",
+      "underline": "（Ctrl L）",
+      "strikeout": "（Ctrl K）"
+    }
   },
   "tool": {
     "pan": "移動瀏覽",
@@ -299,5 +314,41 @@
     "page": "頁",
     "enterurl": "輸入您想要鏈接的URL",
     "enterpage": "選擇您要鏈接的頁碼"
+  },
+  "datePicker": {
+    "previousMonth": "前一個月",
+    "nextMonth": "下個月",
+    "months": {
+      "0": "一月",
+      "1": "二月",
+      "2": "三月",
+      "3": "四月",
+      "4": "五月",
+      "5": "六月",
+      "6": "七月",
+      "7": "八月",
+      "8": "九月",
+      "9": "十月",
+      "10": "十一月",
+      "11": "十二月"
+    },
+    "weekdays": {
+      "0": "星期日",
+      "1": "星期一",
+      "2": "星期二",
+      "3": "星期三",
+      "4": "星期四",
+      "5": "星期五",
+      "6": "星期六"
+    },
+    "weekdaysShort": {
+      "0": "週日",
+      "1": "週一",
+      "2": "週二",
+      "3": "週三",
+      "4": "週四",
+      "5": "週五",
+      "6": "週六"
+    }
   }
 }

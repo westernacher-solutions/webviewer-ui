@@ -38,7 +38,8 @@
     "draw": "무승부",
     "type": "유형",
     "upload": "업로드",
-    "link": "링크"
+    "link": "링크",
+    "fileAttachmentDownload": "첨부 파일 다운로드"
   },
   "annotation": {
     "areaMeasurement": "면적 측정",
@@ -49,6 +50,7 @@
     "distanceMeasurement": "거리 측정",
     "ellipse": "타원",
     "eraser": "지우개",
+    "fileattachment": "첨부 파일",
     "freehand": "자유형",
     "freehand2": "자유형",
     "freetext": "자유 텍스트",
@@ -69,8 +71,7 @@
     "strikeout": "취소선",
     "underline": "밑줄",
     "custom": "사용자 지정",
-    "rubberStamp": "고무 도장",
-    "fileattachment": "첨부 파일"
+    "rubberStamp": "고무 도장"
   },
   "rubberStamp": {
     "Approved": "승인",
@@ -178,6 +179,7 @@
       "all": "모두",
       "current": "현재",
       "pages": "페이지",
+      "includeAnnotations": "주석 포함",
       "includeComments": "코멘트 포함",
       "addWatermarkSettings": "워터 마크 설정 추가"
     },
@@ -226,7 +228,7 @@
     },
     "styleOption": {
       "style": "스타일",
-      "regular": "정규병",
+      "solid": "고체",
       "cloudy": "흐림"
     },
     "slider": {
@@ -249,7 +251,14 @@
     "thumbnailPanel": {
       "delete": "지우다",
       "rotateClockwise": "시계 방향",
-      "rotateCounterClockwise": "시계 반대 방향"
+      "rotateCounterClockwise": "시계 반대 방향",
+      "extractZeroPageError": "추출 할 페이지가 선택되지 않았습니다"
+    },
+    "richText": {
+      "bold": "굵게",
+      "italic": "이탤릭체",
+      "underline": "밑줄",
+      "strikeout": "취소 선"
     }
   },
   "warning": {
@@ -286,7 +295,13 @@
     "strikeout": "(K)",
     "underline": "(U)",
     "zoomIn": "(Ctrl +)",
-    "zoomOut": "(Ctrl -)"
+    "zoomOut": "(Ctrl -)",
+    "richText": {
+      "bold": "(Ctrl B)",
+      "italic": "(Ctrl I)",
+      "underline": "(Ctrl L)",
+      "strikeout": "(Ctrl K)"
+    }
   },
   "tool": {
     "pan": "이동",
@@ -299,5 +314,41 @@
     "page": "페이지",
     "enterurl": "연결할 URL을 입력하십시오",
     "enterpage": "연결하려는 페이지 번호를 선택하십시오"
+  },
+  "datePicker": {
+    "previousMonth": "지난달",
+    "nextMonth": "다음 달",
+    "months": {
+      "0": "1월",
+      "1": "2월",
+      "2": "3월",
+      "3": "4월",
+      "4": "5월",
+      "5": "6월",
+      "6": "7월",
+      "7": "8월",
+      "8": "9월",
+      "9": "10월",
+      "10": "11월",
+      "11": "12월"
+    },
+    "weekdays": {
+      "0": "일요일",
+      "1": "월요일",
+      "2": "화요일",
+      "3": "수요일",
+      "4": "목요일",
+      "5": "금요일",
+      "6": "토요일"
+    },
+    "weekdaysShort": {
+      "0": "일",
+      "1": "월",
+      "2": "화",
+      "3": "수",
+      "4": "목",
+      "5": "금",
+      "6": "토"
+    }
   }
 }
