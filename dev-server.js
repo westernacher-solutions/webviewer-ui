@@ -40,14 +40,14 @@ app.get('/sample-url', (req, res) => {
   );
 });
 
-app.listen(3000, '0.0.0.0', err => {
+app.listen(3002, '0.0.0.0', err => {
   if (err) {
     console.error(err);
   } else {
     // eslint-disable-next-line
-    console.info(`Listening at localhost:3000 (http://${ip.address()}:3000)`);
+    console.info(`Listening at localhost:3002 (http://${ip.address()}:3002)`);
     opn(
-      'http://localhost:3000/#d=https://pdftron.s3.amazonaws.com/downloads/pl/demo-annotated.pdf&a=1',
+      'http://localhost:3002/#d=https://pdftron.s3.amazonaws.com/downloads/pl/demo-annotated.pdf&a=1',
     );
   }
 });
