@@ -59,7 +59,7 @@ class PrintModal extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.isOpen && this.props.isOpen) {
-      this.onChange();
+      // this.onChange();
       this.props.closeElements([
         'signatureModal',
         'loadingModal',
@@ -126,8 +126,8 @@ class PrintModal extends React.PureComponent {
   };
 
   onFocus = () => {
-    this.customPages.current.checked = true;
-    this.onChange();
+    // this.customPages.current.checked = true;
+    // this.onChange();
   };
 
   createPagesAndPrint = e => {
@@ -160,6 +160,22 @@ class PrintModal extends React.PureComponent {
 
   setPrintQuality = () => {
     window.utils.setCanvasMultiplier(this.props.printQuality);
+  };
+
+  getNotesToPrint = () => {
+    let printableAnnotations = [];
+    let pageCount = 0;
+    if (core.getDocument()) {
+      pageCount = core.getDocument().getPageCount();
+    }
+    for (let i = 1; i <= pageCount; i++) {
+      printableAnnotations = printableAnnotations.concat(this.getPrintableAnnotations(i));
+    }
+    // append page that contains all the comments/annotations at the end
+    const sortedNotes = getSortStrategies()[
+      this.props.sortStrategy
+    ].getSortedNotes(printableAnnotations);
+    return sortedNotes;
   };
 
   creatingPages = () => {
@@ -329,7 +345,7 @@ class PrintModal extends React.PureComponent {
 
       const header = document.createElement('div');
       header.className = 'page__header';
-      // header.innerHTML = `Page ${pageNumber}`;
+      header.innerHTML = `Review Note`;
 
       container.appendChild(header);
       annotations.forEach(annotation => {
@@ -438,8 +454,34 @@ class PrintModal extends React.PureComponent {
     pages.forEach(page => {
       fragment.appendChild(page);
     });
+    // note it somehow can't handle display grid
+    const someString = 
+    `<div class="note-page-header">
+        Review Notes
+      </div>
+
+      <div class="note-container" style="padding: 10px; border: 1px solid green;">
+        ${this.getNotesToPrint().map(annot => {
+      return (
+        `
+              <div class="note-content-container" style="margin-bottom: '20px'; border: 1px solid red;">
+                <div class="info" style="display: flex; margin-bottom: '5px';">
+                  <div>${annot.getCustomData('commentNumber')}</div>
+                  <div>${core.getDisplayAuthor(annot) || ''}</div>
+                  <div>${dayjs(annot.DateCreated).format('MM/DD/YYYY')}</div>
+                </div>
+                <div>${annot.getContents()}</div>
+                <div>abc</div>
+              </div>
+            `
+      );
+    })}
+      </div>`;
+
+    const temp = document.createRange().createContextualFragment(someString);
 
     printHandler.appendChild(fragment);
+    printHandler.appendChild(temp);
 
     if (isSafari && !isChromeOniOS) {
       // Print for Safari browser. Makes Safari 11 consistently work.
@@ -478,11 +520,33 @@ class PrintModal extends React.PureComponent {
   };
 
   render() {
-    const { isDisabled, t, isApplyWatermarkDisabled } = this.props;
+    const { isDisabled, t, isApplyWatermarkDisabled, isOpen } = this.props;
 
-    if (isDisabled) {
+    if (isDisabled || !isOpen) {
       return null;
     }
+
+    const someString = 
+    `<div class="note-page-header">
+        Review Notes
+      </div>
+
+      <div class="note-container" style="padding: 10px; border: 1px solid green;">
+        ${this.getNotesToPrint().map(annot => {
+    return (
+      `
+              <div class="note-content-container" style="margin-bottom: 20px; border: 1px solid red;">
+                <div class="info" style="display: flex; margin-bottom: 5px;">
+                  <div>${annot.getCustomData('commentNumber')}</div>
+                  <div>${core.getDisplayAuthor(annot) || ''}</div>
+                  <div>${dayjs(annot.DateCreated).format('MM/DD/YYYY')}</div>
+                </div>
+                <div>${annot.getContents()}</div>
+              </div>
+            `
+    );
+  }).join('')}
+      </div>`;
 
     const { count, pagesToPrint } = this.state;
     const isPrinting = count >= 0;
@@ -514,8 +578,12 @@ class PrintModal extends React.PureComponent {
             this.closePrintModal();
           }}
         >
-          <div className="container" onClick={e => e.stopPropagation()}>
-            <div className="header-container">
+          <div className="container" onClick={e => e.stopPropagation()} style={{width: '100%', height: '100%'}}>
+
+            <div dangerouslySetInnerHTML={{ __html: someString }} />
+
+
+            {/* <div className="header-container">
               <div className="header">{t('action.print')}</div>
               <ActionButton
                 dataElement="printModalCloseButton"
@@ -596,7 +664,7 @@ class PrintModal extends React.PureComponent {
               >
                 {t('option.print.addWatermarkSettings')}
               </button>
-            )}
+            )} */}
             <div className="buttons">
               <div className="total">
                 {isPrinting ? (
