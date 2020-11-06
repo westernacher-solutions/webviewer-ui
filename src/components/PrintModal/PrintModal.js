@@ -446,14 +446,7 @@ class PrintModal extends React.PureComponent {
     return contentElement;
   };
 
-  printPages = pages => {
-    const printHandler = document.getElementById('print-handler');
-    printHandler.innerHTML = '';
-
-    const fragment = document.createDocumentFragment();
-    pages.forEach(page => {
-      fragment.appendChild(page);
-    });
+  createCustomNotesPage = () => {
     // note it somehow can't handle display grid
     const someString = 
     `<div class="note-page-header">
@@ -464,21 +457,33 @@ class PrintModal extends React.PureComponent {
         ${this.getNotesToPrint().map(annot => {
       return (
         `
-              <div class="note-content-container" style="margin-bottom: '20px'; border: 1px solid red;">
-                <div class="info" style="display: flex; margin-bottom: '5px';">
+              <div class="note-content-container" style="margin-bottom: 20px; border: 1px solid red;">
+                <div class="info" style="display: flex; margin-bottom: 5px;">
                   <div>${annot.getCustomData('commentNumber')}</div>
                   <div>${core.getDisplayAuthor(annot) || ''}</div>
                   <div>${dayjs(annot.DateCreated).format('MM/DD/YYYY')}</div>
                 </div>
                 <div>${annot.getContents()}</div>
-                <div>abc</div>
               </div>
             `
       );
-    })}
+    }).join('')}
       </div>`;
 
-    const temp = document.createRange().createContextualFragment(someString);
+    return someString;
+  };
+
+  printPages = pages => {
+    const printHandler = document.getElementById('print-handler');
+    printHandler.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+    pages.forEach(page => {
+      fragment.appendChild(page);
+    });
+    
+
+    const temp = document.createRange().createContextualFragment(this.createCustomNotesPage());
 
     printHandler.appendChild(fragment);
     printHandler.appendChild(temp);
@@ -526,27 +531,7 @@ class PrintModal extends React.PureComponent {
       return null;
     }
 
-    const someString = 
-    `<div class="note-page-header">
-        Review Notes
-      </div>
-
-      <div class="note-container" style="padding: 10px; border: 1px solid green;">
-        ${this.getNotesToPrint().map(annot => {
-    return (
-      `
-              <div class="note-content-container" style="margin-bottom: 20px; border: 1px solid red;">
-                <div class="info" style="display: flex; margin-bottom: 5px;">
-                  <div>${annot.getCustomData('commentNumber')}</div>
-                  <div>${core.getDisplayAuthor(annot) || ''}</div>
-                  <div>${dayjs(annot.DateCreated).format('MM/DD/YYYY')}</div>
-                </div>
-                <div>${annot.getContents()}</div>
-              </div>
-            `
-    );
-  }).join('')}
-      </div>`;
+    const someString = this.createCustomNotesPage();
 
     const { count, pagesToPrint } = this.state;
     const isPrinting = count >= 0;
@@ -578,12 +563,11 @@ class PrintModal extends React.PureComponent {
             this.closePrintModal();
           }}
         >
-          <div className="container" onClick={e => e.stopPropagation()} style={{width: '100%', height: '100%'}}>
+          <div className="container" onClick={e => e.stopPropagation()}>
 
-            <div dangerouslySetInnerHTML={{ __html: someString }} />
+            {/* <div dangerouslySetInnerHTML={{ __html: someString }} /> */}
 
-
-            {/* <div className="header-container">
+            <div className="header-container">
               <div className="header">{t('action.print')}</div>
               <ActionButton
                 dataElement="printModalCloseButton"
@@ -664,7 +648,7 @@ class PrintModal extends React.PureComponent {
               >
                 {t('option.print.addWatermarkSettings')}
               </button>
-            )} */}
+            )}
             <div className="buttons">
               <div className="total">
                 {isPrinting ? (
