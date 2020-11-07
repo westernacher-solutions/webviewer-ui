@@ -26,6 +26,11 @@ import setUserPermission from 'helpers/setUserPermission';
 import logDebugInfo from 'helpers/logDebugInfo';
 import rootReducer from 'reducers/rootReducer';
 import getHashParams from 'helpers/getHashParams';
+import downloadPdf from './helpers/downloadPdf';
+
+import Feature from 'constants/feature';
+
+import enableFeatures from 'src/apis/enableFeatures';
 
 const middleware = [thunk];
 
@@ -149,6 +154,11 @@ if (window.CanvasRenderingContext2D) {
     setDefaultToolStyles();
     applyNumberingToAnnotations(store);
     core.setToolMode(defaultTool);
+
+    store.dispatch(actions.setCustomElementOverrides('downloadButton', {
+      onClick: () => downloadPdf(store.dispatch)
+    }));
+    // enableFeatures(store)([Feature.FilePicker]);
 
     ReactDOM.render(
       <Provider store={store}>

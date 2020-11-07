@@ -448,6 +448,7 @@ class PrintModal extends React.PureComponent {
 
   createCustomNotesPage = () => {
     // note it somehow can't handle display grid
+    // need to use inline styling but should create constants to capture string
     const someString = 
     `<div class="note-page-header">
         Review Notes

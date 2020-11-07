@@ -8,7 +8,7 @@ import actions from 'actions';
 export default (dispatch, options = {}) => {
   const {
     filename = core.getDocument()?.getFilename() || 'document',
-    includeAnnotations = includeAnnotations.includeAnnotations !== undefined ? includeAnnotations.includeAnnotations : true,
+    includeAnnotations = options.includeAnnotations !== undefined ? options.includeAnnotations : false,
     xfdfData,
     externalURL,
   } = options;
