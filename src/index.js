@@ -26,6 +26,7 @@ import setUserPermission from 'helpers/setUserPermission';
 import logDebugInfo from 'helpers/logDebugInfo';
 import rootReducer from 'reducers/rootReducer';
 import getHashParams from 'helpers/getHashParams';
+import downloadPdf from './helpers/downloadPdf';
 
 const middleware = [thunk];
 
@@ -143,6 +144,11 @@ if (window.CanvasRenderingContext2D) {
     setDefaultToolStyles();
     applyNumberingToAnnotations(store);
     core.setToolMode(defaultTool);
+    // when WVS is enabled, LPL wants to be able to download it in original file format.
+    // WVS downloads it in PDF
+    store.dispatch(actions.setCustomElementOverrides('downloadButton', {
+      onClick: () => downloadPdf(store.dispatch)
+    }));
 
     ReactDOM.render(
       <Provider store={store}>
