@@ -52,12 +52,10 @@ export default (dispatch, options = {}) => {
        * According to https://www.pdftron.com/api/web/CoreControls.Document.html
        * We can't download image files / other files as their own extension, must convert it to PDF
        */
-      if (fileNameParts[fileNameParts.length - 1].match(/(jpg|jpeg|png|gif)$/i) && options.downloadType !== 'office' ) {
+      if (!fileNameParts[fileNameParts.length - 1] !== 'pdf' && options.downloadType !== 'office') {
         fileNameParts[fileNameParts.length - 1] = 'pdf';
       }
-      if (fileNameParts[fileNameParts.length - 1].match(/(pptx|ppt|xls|xlsx|doc|docx)$/i)) {
-        options.downloadType = 'office';
-      }
+
       const downloadName = getDownloadFilename(filename, `.${fileNameParts[fileNameParts.length - 1]}`);
 
       if (externalURL) {

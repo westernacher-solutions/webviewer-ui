@@ -144,11 +144,6 @@ if (window.CanvasRenderingContext2D) {
     setDefaultToolStyles();
     applyNumberingToAnnotations(store);
     core.setToolMode(defaultTool);
-    // when WVS is enabled, LPL wants to be able to download it in original file format.
-    // WVS downloads it in PDF
-    store.dispatch(actions.setCustomElementOverrides('downloadButton', {
-      onClick: () => downloadPdf(store.dispatch)
-    }));
 
     ReactDOM.render(
       <Provider store={store}>
