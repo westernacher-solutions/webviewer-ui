@@ -36,7 +36,7 @@ export default store => options => {
   const printOptions = {
     ...defaultOptions,
     ...options,
-    printQuality = selectors.getPrintQuality(store.getState())
+    printQuality : selectors.getPrintQuality(store.getState())
   };
 
   const { allPages, pagesToPrint } = printOptions;
