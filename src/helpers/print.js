@@ -9,15 +9,12 @@ import { isSafari, isChromeOniOS } from 'helpers/device';
 import core from 'core';
 
 let pendingCanvases = [];
-let includeAnnotations = false;
-let printQuality = 1;
+let INCLUDE_ANNOTATIONS = false;
+let DEFAULT_PRINT_QUALITY = 1;
 let colorMap;
 
-export const print = async(dispatch, isEmbedPrintSupported, sortStrategy, colorMap, options) => {
-  let allPages, includeAnnotations, includeComments, pagesToPrint, onProgress;
-  if (options) {
-    ({ allPages, includeAnnotations, includeComments, pagesToPrint, onProgress } = options);
-  }
+export const print = async(dispatch, isEmbedPrintSupported, sortStrategy, colorMap, options={}) => {
+  let {allPages, includeAnnotations, includeComments, pagesToPrint, onProgress, printQuality = DEFAULT_PRINT_QUALITY } = options;
 
   if (!core.getDocument()) {
     return;
@@ -93,11 +90,11 @@ const printPdf = () =>
       });
   });
 
-export const creatingPages = (pagesToPrint, includeComments, includeAnnot, printQualty, sortStrategy, clrMap, dateFormat, onProgress) => {
+export const creatingPages = (pagesToPrint, includeComments, includeAnnotations, printQuality, sortStrategy, clrMap, dateFormat, onProgress) => {
   const createdPages = [];
   pendingCanvases = [];
-  includeAnnotations = includeAnnot;
-  printQuality = printQualty;
+  INCLUDE_ANNOTATIONS = includeAnnotations;
+  DEFAULT_PRINT_QUALITY = printQuality;
   colorMap = clrMap;
 
   pagesToPrint.forEach(pageNumber => {
@@ -166,7 +163,7 @@ const creatingImage = (pageNumber, printableAnnotations) =>
         positionCanvas(canvas, pageIndex);
       }
 
-      if (includeAnnotations) {
+      if (INCLUDE_ANNOTATIONS) {
         await drawAnnotationsOnCanvas(canvas, pageNumber);
       } else {
         // disable all printable annotations before draw
@@ -187,7 +184,7 @@ const creatingImage = (pageNumber, printableAnnotations) =>
       zoom,
       pageRotation: printRotation,
       drawComplete: onCanvasLoaded,
-      multiplier: printQuality,
+      multiplier: DEFAULT_PRINT_QUALITY,
       'print': true,
     });
     pendingCanvases.push(id);
